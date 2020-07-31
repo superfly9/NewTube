@@ -17,7 +17,15 @@ const Dropzone=()=>{
       Axios.post('/api/video/uploadFile',formData,config)
         .then(response=>{
           if (response.data.success) {
-            
+            const {data:{filePath,fileName}} = response
+            const body = {filePath, fileName}
+            Axios.post('/api/video/thumbnail',body)
+              .then(response=>{
+                if (response.data.success) {
+                  console.log(response.data)
+                }
+              })
+
           }
         })
     }, [])

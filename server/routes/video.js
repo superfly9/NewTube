@@ -21,4 +21,36 @@ videoRouter.post('/uploadFile',upload.single('videoFile'),(req,res)=>{
     }
 })
 
+
+videoRouter.post("/thumbnail", (req, res) => {
+
+    let thumbnailPath ="";
+    let fileDuration ="";
+
+    const {body :{filePath}} = req;
+    ffmpeg.ffprobe(filePath, function(err, metadata){
+        fileDuration = metadata.format.duration;
+    })
+
+    ffmpeg(filePath)
+        .on('filenames', function (filenames) {
+            console.log('Will generate ' + filenames.join(', '),filenames)
+            thumbnailPath = "uploads/thumbnails/" + filenames[0];
+            console.log(filePath,thumbnailPath);
+        })
+        .on('end', function () {
+            console.log('Screenshots taken');
+            return res.json({ success: true, thumbnailPath, fileDuration})
+        })
+        .screenshots({
+            count: 3,
+            folder: 'uploads/thumbnails',
+            size:'320x240',
+            filename:'thumbnail-%b.png'
+        });
+
+});
+
+
+
 module.exports = videoRouter;
