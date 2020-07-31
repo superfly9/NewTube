@@ -1,0 +1,30 @@
+.upload_container {
+    width:60%;
+    margin: 2.5rem auto;
+}
+.upload_title {
+    font-weight: 500;
+    text-align: center;
+}
+
+.upload_container_form {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin:1rem auto;
+}
+.upload_container_form label {
+    margin: .5rem 0;
+}
+
+.upload_container_form select {
+    width: 25%;
+    margin : .5rem 0;
+}
+.upload_container_form button {
+    width: 20%;
+}
+.dropzone_container {
+    border: 1px solid black;
+    display: flex;
+}
