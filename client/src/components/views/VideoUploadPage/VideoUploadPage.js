@@ -6,6 +6,9 @@ function VideoUploadPage() {
     const [Title,setTitle] = useState('');
     const [Description,setDescription] = useState('');
     const [Category,setCategory] = useState(0);
+    const [VideoFilePath,setVideoFilePath] = useState('');
+    const [Duration,setDuration] = useState(0);
+    const [ThumbnailPath,setThumbnailPath] =useState('');
 
     const category = [
         {index:0, value:'Flim & Animation'},
@@ -49,7 +52,6 @@ function VideoUploadPage() {
                     <div className='dropzone_container'>
                         <Dropzone />
                         {/* Image thumbnail */}
-                        <img src='/' alt='' />
                     </div>
 
                     <label htmlFor='title'>Title:</label>

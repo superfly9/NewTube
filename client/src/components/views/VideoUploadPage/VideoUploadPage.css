@@ -26,5 +26,6 @@
 }
 .dropzone_container {
     border: 1px solid black;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
 }
