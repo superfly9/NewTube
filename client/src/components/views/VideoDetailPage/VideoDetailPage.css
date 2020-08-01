@@ -1,0 +1,17 @@
+.videoDetail_container {
+    padding: 3rem 4rem;
+    width: 100%;
+}
+.video_container video {
+    width: 100%;
+}
+.video_info_container {
+    padding: 1rem 0;
+    display: flex;
+}
+.video_info_writer_thumbnail {
+    margin-right: .5rem;
+}
+.video_info_writer_thumbnail img {
+    width: 80%;
+}

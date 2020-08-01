@@ -21,7 +21,7 @@ function LandingPage() {
         const second  = Math.floor(videoInfo.duration - (minutes*60));
      return (<Col lg={6} md={8} xs={24} key={index}>
                 <div className='landing_video_thumbnail'>
-                    <a href={`/video/post/${videoInfo._id}`}>
+                    <a href={`/video/${videoInfo._id}`}>
                         <img src={`http://localhost:5000/${videoInfo.thumbnail}`}/>
                         <span className='landing_video_duration'>{`${minutes}:${second}`}</span>
                     </a>
@@ -33,8 +33,10 @@ function LandingPage() {
                     <div className='landing_video_info'>
                         <span>{videoInfo.title}</span>
                         <span>{videoInfo.description}</span>
-                        <span>{videoInfo.views!==0 && videoInfo.view>1 ? `${videoInfo.views} views`: `${videoInfo.views} view` }</span>
-                        <span>{moment(videoInfo.createdAt).format("MMM Do YY")}</span>
+                        <div>
+                            <span>{videoInfo.views!==0 && videoInfo.view>1 ? `${videoInfo.views} views`: `${videoInfo.views} view` }</span>
+                            <span> - {moment(videoInfo.createdAt).format("MMM Do YY")}</span>
+                        </div>
                     </div>
                 </div>
             </Col>)

@@ -1,0 +1,19 @@
+.sideVideo_container {
+    display: flex;
+    margin-bottom: 1rem;
+}
+.sideVideo_thumbnail {
+    width: 60%;
+    margin-bottom: 1rem;
+}
+.sideVideo_thumbnail img {
+    width: 100%;
+}
+
+.sideVideo_info {
+    font-size: 1rem;
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+}

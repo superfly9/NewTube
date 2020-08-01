@@ -69,4 +69,15 @@ videoRouter.get('/getVideos',(req,res)=>{
         })
 })
 
+videoRouter.post('/getVideoDetail',(req,res)=>{
+    const {body : {videoId}} = req;
+    Video.findOne({_id : videoId})
+        .populate('writer')
+        .exec((err,videoInfo)=>{
+            if (err) return res.json({success:false,err})
+            console.log('at DetailInfo:',videoInfo);
+            res.json({success:true,videoInfo});
+        })
+})
+
 module.exports = videoRouter;

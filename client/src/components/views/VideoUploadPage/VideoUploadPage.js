@@ -33,7 +33,7 @@ function VideoUploadPage(props) {
         if (Title === "" || Description === "" ||
         Category === "" || VideoFilePath === "" ||
         Duration === "" || ThumbnailPath === "") {
-        return alert('Please first fill all the fields')
+        return alert('모든 정보를 다 입력해주세요.')
     }
         const body ={
             writer : userData._id,
@@ -47,10 +47,10 @@ function VideoUploadPage(props) {
         Axios.post('/api/video/uploadVideo',body)
             .then(response=>{
                 if (response.data.success) {
-                    alert('Success!')
+                    alert('Success! 1초 뒤 홈으로 이동합니다.')
                     setTimeout(()=>{
                         props.history.push('/')
-                    },3000)
+                    },1000)
                 } else {
                     alert('Fail at Upload Video');
                 }
