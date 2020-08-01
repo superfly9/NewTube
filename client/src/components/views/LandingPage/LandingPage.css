@@ -1,0 +1,31 @@
+.landingPage_container {
+    width:85%;
+    margin: 3rem auto;
+}
+.landingPage_title {
+    margin: 2rem 0;
+    text-align: center;
+}
+.landing_video_thumbnail {
+    position: relative;
+}
+.landing_video_duration {
+    position: absolute;
+    bottom: 0;
+    right: 1rem;
+    color: aliceblue;
+}
+.landing_video_thumbnail img {
+    width: 100%;
+}
+.landing_video_info_container {
+    margin: .5rem 0;
+    display: flex;  
+}
+.landing_video_writer_thumbnail img {
+    width: 70%;
+}
+.landing_video_info {
+    display: flex;
+    flex-direction: column;
+}
