@@ -34,9 +34,7 @@ videoRouter.post("/thumbnail", (req, res) => {
 
     ffmpeg(filePath)
         .on('filenames', function (filenames) {
-            console.log('Will generate ' + filenames.join(', '),filenames)
             thumbnailPath = "uploads/thumbnails/" + filenames[0];
-            console.log(filePath,thumbnailPath);
         })
         .on('end', function () {
             console.log('Screenshots taken');

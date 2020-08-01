@@ -1,8 +1,13 @@
 import React,{useEffect,useState} from 'react';
+import {useSelector} from 'react-redux';
 import Dropzone from '../utils/DropZone';
 import './VideoUploadPage.css';
+import Axios from 'axios';
 
 function VideoUploadPage() {
+    const user = useSelector(state => state.user);
+    const {userData} = user;
+    console.log('redux userData:',userData);
     const [Title,setTitle] = useState('');
     const [Description,setDescription] = useState('');
     const [Category,setCategory] = useState(0);
@@ -24,6 +29,23 @@ function VideoUploadPage() {
 
     const uploadVideo=(e)=>{
         e.preventDefault();
+        const body ={
+            writer : userData._id,
+            title :Title,
+            description :Description,
+            category :Category,
+            filePath : VideoFilePath,
+            thumbnail :ThumbnailPath,
+            duration: Duration
+        }
+        Axios.post('/api/video/uploadVideo',body)
+            .then(response=>{
+                if (response.data.success) {
+
+                } else {
+                    alert('Fail at Upload Video');
+                }
+            })
     }
     const handleOnChange=(e)=>{
         const name = e.target.name;
@@ -42,6 +64,13 @@ function VideoUploadPage() {
     const categoryChange=(e)=>{
         setCategory(e.target.value);
     }
+    const updateState =(childComponentInfo)=>{
+     //VideoFilePath,   ThumbnailPath ,Duration설정하는 함수
+     const {filePath,thumbnailPath,fileDuration} = childComponentInfo;
+     setVideoFilePath(filePath);
+     setThumbnailPath(thumbnailPath);
+     setDuration(fileDuration);
+    }
     return (
         <div>
             <div className='upload_container'>
@@ -50,7 +79,7 @@ function VideoUploadPage() {
                 <form className='upload_container_form' onSubmit={uploadVideo}>
                     {/* DropZone */}
                     <div className='dropzone_container'>
-                        <Dropzone />
+                        <Dropzone updateState={updateState}/>
                         {/* Image thumbnail */}
                     </div>
 
