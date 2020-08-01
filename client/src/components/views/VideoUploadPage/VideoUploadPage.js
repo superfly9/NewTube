@@ -1,10 +1,10 @@
-import React,{useEffect,useState} from 'react';
+import React,{useState} from 'react';
 import {useSelector} from 'react-redux';
 import Dropzone from '../utils/DropZone';
-import './VideoUploadPage.css';
 import Axios from 'axios';
+import './VideoUploadPage.css';
 
-function VideoUploadPage() {
+function VideoUploadPage(props) {
     const user = useSelector(state => state.user);
     const {userData} = user;
     console.log('redux userData:',userData);
@@ -29,6 +29,12 @@ function VideoUploadPage() {
 
     const uploadVideo=(e)=>{
         e.preventDefault();
+
+        if (Title === "" || Description === "" ||
+        Category === "" || VideoFilePath === "" ||
+        Duration === "" || ThumbnailPath === "") {
+        return alert('Please first fill all the fields')
+    }
         const body ={
             writer : userData._id,
             title :Title,
@@ -41,7 +47,10 @@ function VideoUploadPage() {
         Axios.post('/api/video/uploadVideo',body)
             .then(response=>{
                 if (response.data.success) {
-
+                    alert('Success!')
+                    setTimeout(()=>{
+                        props.history.push('/')
+                    },3000)
                 } else {
                     alert('Fail at Upload Video');
                 }

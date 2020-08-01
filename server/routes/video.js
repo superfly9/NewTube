@@ -2,6 +2,7 @@ const express = require('express');
 const videoRouter = express.Router();
 const multer = require('multer');
 const ffmpeg = require('fluent-ffmpeg');
+const {Video} = require('../models/Video');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -50,5 +51,15 @@ videoRouter.post("/thumbnail", (req, res) => {
 });
 
 
+videoRouter.post('/uploadvideo',(req,res)=>{
+    const newVideo = new Video(req.body);
+    newVideo.save((err,video)=>{
+        if (err) return res.json({err,success:false})
+        res.json({success:true,video})
+    })
+})
+
+videoRouter.get('/getVideos',(req,res)=>{
+})
 
 module.exports = videoRouter;
