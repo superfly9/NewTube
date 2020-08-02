@@ -36,7 +36,9 @@ function VideoDetailPage(props) {
                             <span>{VideoInfo.description}</span>
                         </div>
 
-                        <Subscribe userTo={VideoInfo.writer._id} userFrom={localStorage.getItem('userId')} />
+                        <div className='subscribe_btn_container'>
+                            <Subscribe userTo={VideoInfo.writer._id} userFrom={localStorage.getItem('userId')} />
+                        </div>
                     </div>
                 </Fragment>
             )

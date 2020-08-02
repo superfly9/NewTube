@@ -1,6 +1,6 @@
-import React,{useEffect,useState} from 'react'
+import React,{useEffect,useState, Fragment} from 'react'
 import Axios from 'axios';
-import { Button } from 'antd';
+import './Subscribe.css';
 
 function Subscribe(props) {
     const { userTo,userFrom }=props;
@@ -30,12 +30,44 @@ function Subscribe(props) {
                     alert('구독 여부 확인에 실패했습니다.')
                 }
             })
-
     },[])
+
+    const toggleSubscribe = () =>{
+        const body = {userTo,userFrom};
+        if (Subscribed) {
+        //구독 중 클릭시 구독 해지
+            Axios.post('/api/subscribe/removeFromSubScribe',body)
+                .then(response=>{
+                    if (response.data.success) {
+                        setSubscribed(!Subscribed)
+                        setSubscribeNumber(SubscribeNumber-1);
+                    } else {
+                        alert('구독해지에 실패했습니다.')
+                    }
+                })
+        } else {
+        //구독 중이 아니라면 구독목록에 추가
+            Axios.post('/api/subscribe/addToSubscribe',body)
+                .then(response=>{
+                    if (response.data.success) {
+                        setSubscribed(!Subscribed)
+                        setSubscribeNumber(SubscribeNumber+1)
+                    } else {
+                        alert('구독추가에 실패했습니다.')
+                    }
+                }) 
+        }
+    }
     return (
-        <div>
-            <Button>{SubscribeNumber} {Subscribed ? '구독 취소' : '구독'}</Button>
-        </div>
+        <Fragment>
+            <button 
+                onClick={toggleSubscribe}
+                className='subscribe_btn' 
+                style={{backgroundColor:`${Subscribed ? 'gray':'red'}`}}
+            >
+                {SubscribeNumber} {Subscribed ? '구독 취소' : '구독'}
+            </button>
+        </Fragment>
     )
 }
 
