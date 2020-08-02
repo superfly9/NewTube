@@ -12,5 +12,19 @@ subscribeRouter.post('/getSubscribeNumber',(req,res)=>{
         })
 })
 
+subscribeRouter.post('/subscribed',(req,res)=>{
+    const {body : {userTo,userFrom}} = req;
+    Subscribe.find({userTo,userFrom})
+        .exec((err,subscribeUser)=>{
+            if (err) return res.json({success:false,err});
+            let subscribed = false;
+            if (subscribeUser.length > 0) {
+                subscribed = false;
+            }
+            console.log('Check If I sub:',subscribeUser)
+            res.json({success:true,subscribed})
+    })
+})
+    
 
 module.exports = subscribeRouter;

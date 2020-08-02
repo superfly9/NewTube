@@ -8,18 +8,29 @@ function Subscribe(props) {
     const [Subscribed,setSubscribed] = useState(false);
 
     useEffect(()=>{
-        const body = {
-            userTo, //비디오 만든사람
-            userFrom  //로그인해 있는 유저
-        }
+        //userTo:비디오 창작자의 mongoDBId userFrom:로그인한 유저의 mongoDBId
+        const body = { userTo }
         Axios.post('/api/subscribe/getSubscribeNumber',body)
             .then(response=>{
                 if (response.data.success) {
-                    setSubscribeNumber(response.data.subscribeNumber);
+                    const {data :{subscribeNumber}} = response;
+                    setSubscribeNumber(subscribeNumber);
                 } else {
                     alert('구독자 수를 받아오는 데 실패했습니다.')
                 }
             })
+        const subscribedCheckObj = {userTo,userFrom};
+        Axios.post('/api/subscribe/subscribed',subscribedCheckObj)
+            .then(response=>{
+                if (response.data.success) {
+                    const {data:{subscribed}} = response;
+                    console.log('check:',subscribed);
+                    setSubscribed(subscribed);
+                } else {
+                    alert('구독 여부 확인에 실패했습니다.')
+                }
+            })
+
     },[])
     return (
         <div>
