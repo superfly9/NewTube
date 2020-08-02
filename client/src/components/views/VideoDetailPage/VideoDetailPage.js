@@ -3,6 +3,7 @@ import Axios from 'axios';
 import {Row,Col} from 'antd';
 import './VideoDetailPage.css';
 import SideVideo from './Sections/SideVideo';
+import Subscribe from './Sections/Subscribe';
 
 function VideoDetailPage(props) {
     const {match : {params : {videoId}}} =props;
@@ -34,6 +35,8 @@ function VideoDetailPage(props) {
                             <h3>{VideoInfo.writer.name}</h3>
                             <span>{VideoInfo.description}</span>
                         </div>
+
+                        <Subscribe userTo={VideoInfo.writer._id} userFrom={localStorage.getItem('userId')} />
                     </div>
                 </Fragment>
             )
