@@ -39,8 +39,8 @@ function Subscribe(props) {
             Axios.post('/api/subscribe/removeFromSubScribe',body)
                 .then(response=>{
                     if (response.data.success) {
-                        setSubscribed(!Subscribed)
                         setSubscribeNumber(SubscribeNumber-1);
+                        setSubscribed(!Subscribed)
                     } else {
                         alert('구독해지에 실패했습니다.')
                     }
@@ -50,8 +50,8 @@ function Subscribe(props) {
             Axios.post('/api/subscribe/addToSubscribe',body)
                 .then(response=>{
                     if (response.data.success) {
-                        setSubscribed(!Subscribed)
                         setSubscribeNumber(SubscribeNumber+1)
+                        setSubscribed(!Subscribed)
                     } else {
                         alert('구독추가에 실패했습니다.')
                     }
