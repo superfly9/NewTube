@@ -9,9 +9,8 @@ function Comment(props) {
     const {userData} = user;
     const {videoId,commentList,updateComment} = props;
     const [CommentValue,setCommentValue] = useState([]);
-    const [ShowComment,setShowComment] = useState(true);
+    const [ShowComment,setShowComment] = useState(false);
 
-    console.log('at Comment commentList:',commentList)
     const textAreaChange = (e)=>{
         setCommentValue(e.target.value);
     }
@@ -50,7 +49,6 @@ function Comment(props) {
         setShowComment(!ShowComment)
     }
     const renderComment = () =>{
-        console.log('userData:',userData)
         if (userData._id) {
             let userId = userData._id
             return (
