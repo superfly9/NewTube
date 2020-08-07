@@ -64,7 +64,6 @@ videoRouter.get('/getVideos',(req,res)=>{
         .populate('writer')
         .exec((err,videos)=>{
             if (err) return res.json({err,success:false});
-            console.log('vidoes:',videos)
             res.json({success:true,videos});
         })
 })
@@ -75,7 +74,6 @@ videoRouter.post('/getVideoDetail',(req,res)=>{
         .populate('writer')
         .exec((err,videoInfo)=>{
             if (err) return res.json({success:false,err})
-            console.log('at DetailInfo:',videoInfo);
             res.json({success:true,videoInfo});
         })
 })

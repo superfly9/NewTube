@@ -1,0 +1,42 @@
+.root_comment_form {
+    display: flex;
+    flex-direction: column;
+}
+.root_comment_form .button_container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: .5rem;
+}
+.root_comment_form .button_container .cancel_btn {
+    background-color: gray;
+    opacity:.5;
+    color: white;
+    border: none;
+}
+.root_comment_textarea { 
+    width: 100%;
+    margin-right: .5rem;
+}
+.root_comment_form button {
+    padding:.3rem 1rem;
+    width: 10%;
+    font-weight: 500;
+}
+.comment_writer_container {
+    display: flex;
+    padding:.5rem;
+    height: 100%;
+}
+.comment_writer_image {
+    height: 10vh;
+    border-radius: 50%;
+}
+.comment_writer_container .writer_info {
+    display: flex;
+    margin-left: 1rem;
+    flex-direction: column;
+    font-weight: 500;
+}
+.comment_writer_container .writer_info p {
+    margin-top: .3rem;
+}

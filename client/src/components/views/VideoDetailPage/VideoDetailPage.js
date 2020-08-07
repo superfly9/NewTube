@@ -4,9 +4,11 @@ import {Row,Col} from 'antd';
 import './VideoDetailPage.css';
 import SideVideo from './Sections/SideVideo';
 import Subscribe from './Sections/Subscribe';
+import Comment from './Sections/Comment';
 
 function VideoDetailPage(props) {
     const {match : {params : {videoId}}} =props;
+    const [Comments,setComments] = useState([]);
     const [VideoInfo,setVideoInfo] = useState({});
     useEffect(() => {
         const body ={
@@ -20,7 +22,23 @@ function VideoDetailPage(props) {
                     alert('비디오 정보를 가져오는 데 실패했습니다.')
                 }
             })
+        Axios.post('/api/comment/getComments',body)
+            .then(response=>{
+                if (response.data.success) {
+                    const { data : {commentList}} = response;
+                    console.log('commentList:',commentList);
+                    setComments([...commentList]);
+                } else {
+                    alert('댓글 정보를 가져오는 데 실패했습니다.')
+                }
+            })
     }, [])
+
+    const updateComment = (newComment)=>{
+        console.log('when Update Comment:',newComment);
+        //newComment => {_id,videoId,content,createdAt,updateAt}
+        setComments([...Comments,newComment])
+    }
 
     const renderVideo = ()=>{
         if (VideoInfo.writer) {
@@ -57,6 +75,7 @@ function VideoDetailPage(props) {
                     {/* RenderVideo */}
                     {renderVideo()}
                     {/* Reply */}
+                    <Comment updateComment={updateComment} commentList={Comments} videoId={videoId}/>
                 </Col>
                 <Col lg={6} xs={24}>
                     <SideVideo />
