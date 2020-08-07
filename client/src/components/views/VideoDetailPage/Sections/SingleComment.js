@@ -10,7 +10,6 @@ function SingleComment(props) {
     const [OpenComment,setOpenComment] = useState(false);
     const [CommentValue,setCommentValue] = useState('');
 
-    console.log('Single Comment Info:',comment)
     const toggleOpenComment = () =>{
         setOpenComment(!OpenComment)
     }
@@ -26,7 +25,6 @@ function SingleComment(props) {
             .then(response=>{
                 if (response.data.success) {
                     const { data : {commentInfo}} = response;
-                    console.log('comment Info at SingleComment:',commentInfo);
                     updateComment(commentInfo);
                     setCommentValue('');
                 }
@@ -36,24 +34,40 @@ function SingleComment(props) {
         setCommentValue(e.target.value);
     }
 
-    const renderForm = ()=>(
-        <form onSubmit={submitComment} className='root_comment_form'>
+    const renderForm = () =>{
+        if (userData._id) {
+            let userId = userData._id
+            return (
+                <form onSubmit={submitComment} className='root_comment_form'>
+                    <textarea className='root_comment_textarea' 
+                        value={CommentValue}
+                        onChange={textAreaChange}
+                        placeholder='내용을 입력하세요'
+                    ></textarea>
+                    {OpenComment &&
+                        <div className='button_container'>
+                            <button className='cancel_btn' onClick={toggleOpenComment}>취소</button>
+                            <button>댓글</button>
+                        </div>
+                    }
+            </form>
+            )
+        } else {
+            return (
+                <form onSubmit={submitComment} className='root_comment_form'>
                 <textarea className='root_comment_textarea' 
                     value={CommentValue}
                     onChange={textAreaChange}
-                    onClick={toggleOpenComment}
-                    placeholder='내용을 입력하세요'
-                ></textarea>                    
-                <div className='button_container'>
-                    <button className='cancel_btn' onClick={toggleOpenComment}>취소</button>
-                    <button>댓글</button>
-                </div>
-        </form>
-    )
+                    placeholder='로그인 후 댓글 등록이 가능합니다.'
+                ></textarea>
+            </form>
+            )
+        }
+    }
     const renderSingleComment =()=>{
         return (
             comment.writer && 
-            <div className='singleComment_container'> 
+            <div className='singleComment'> 
                 <div className='comment_writer_container'>
                     <img className='comment_writer_image' src={comment.writer.image} />
                     <div className='writer_info'>
@@ -66,10 +80,10 @@ function SingleComment(props) {
         )
     }
     return (
-        <Fragment>
+        <div className='singleComment_container'>
                 {renderSingleComment()}
-                {OpenComment && renderForm()}
-        </Fragment>
+                {OpenComment && userData && renderForm()}
+        </div>
     )
 }
 

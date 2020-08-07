@@ -26,7 +26,6 @@ function Comment(props) {
             .then(response=>{
                 if (response.data.success) {
                     const {data : {commentInfo}} = response
-                    console.log(commentInfo);
                     updateComment(commentInfo);
                     setCommentValue('');
                     setShowComment(false);
@@ -36,34 +35,34 @@ function Comment(props) {
                 }
             })
     }
-    const renderSingleComments = commentList && commentList.map((commentInfo,index)=>(
-        <Fragment key={index}>
-            {
-                !commentInfo.responseTo &&
+    const renderSingleComments = commentList && commentList.map(
+        (commentInfo,index)=>(
+            !commentInfo.responseTo &&
+            <Fragment key={index}>
                 <SingleComment updateComment={updateComment} comment={commentInfo} videoId={videoId} />
-            }
-        </Fragment>
+            </Fragment>
     ))
-    const cancelComment = () =>{
-        setShowComment(!ShowComment)
-    }
-    const renderComment = () =>{
+    
+    const cancelComment = () =>setShowComment(!ShowComment)
+    
+    const renderForm = () =>{
         if (userData._id) {
             let userId = userData._id
             return (
                 <form onSubmit={submitComment} className='root_comment_form'>
-                <textarea className='root_comment_textarea' 
-                    value={CommentValue}
-                    onChange={textAreaChange}
-                    onClick={cancelComment}
-                    placeholder='내용을 입력하세요'
-                ></textarea>
-                {ShowComment &&
-                    <div className='button_container'>
-                        <button className='cancel_btn' onClick={cancelComment}>취소</button>
-                        <button>댓글</button>
-                    </div>
-                }
+                    <textarea className='root_comment_textarea' 
+                        value={CommentValue}
+                        onBlur={cancelComment}
+                        onChange={textAreaChange}
+                        onClick={cancelComment}
+                        placeholder='내용을 입력하세요'
+                    ></textarea>
+                    {ShowComment &&
+                        <div className='button_container'>
+                            <button className='cancel_btn' onClick={cancelComment}>취소</button>
+                            <button>댓글</button>
+                        </div>
+                    }
             </form>
             )
         } else {
@@ -83,7 +82,7 @@ function Comment(props) {
         <div>
             <p>댓글</p>
             <hr />
-            {userData&&renderComment()}
+            {userData&&renderForm()}
             {renderSingleComments}
         </div>
     )
