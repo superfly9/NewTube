@@ -37,23 +37,22 @@ function SingleComment(props) {
     }
 
     const renderForm = ()=>(
-        <Fragment>
-            <form onSubmit={submitComment} className='root_comment_form'>
+        <form onSubmit={submitComment} className='root_comment_form'>
                 <textarea className='root_comment_textarea' 
                     value={CommentValue}
                     onChange={textAreaChange}
+                    onClick={toggleOpenComment}
                     placeholder='내용을 입력하세요'
                 ></textarea>                    
                 <div className='button_container'>
                     <button className='cancel_btn' onClick={toggleOpenComment}>취소</button>
                     <button>댓글</button>
                 </div>
-            </form>
-        </Fragment>
+        </form>
     )
-    return (
-        <Fragment>
-            {comment.writer && 
+    const renderSingleComment =()=>{
+        return (
+            comment.writer && 
             <div className='singleComment_container'> 
                 <div className='comment_writer_container'>
                     <img className='comment_writer_image' src={comment.writer.image} />
@@ -63,9 +62,13 @@ function SingleComment(props) {
                     </div>
                 </div>
                 <p onClick={toggleOpenComment}>댓글 달기</p>
-                {OpenComment && renderForm()}
             </div>
-            }
+        )
+    }
+    return (
+        <Fragment>
+                {renderSingleComment()}
+                {OpenComment && renderForm()}
         </Fragment>
     )
 }

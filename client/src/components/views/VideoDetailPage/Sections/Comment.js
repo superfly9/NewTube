@@ -29,6 +29,7 @@ function Comment(props) {
                     console.log(commentInfo);
                     updateComment(commentInfo);
                     setCommentValue('');
+                    setShowComment(false);
                     // [{}]
                 } else {
                     alert('댓글 저장에 실패했습니다.')
@@ -39,9 +40,7 @@ function Comment(props) {
         <Fragment key={index}>
             {
                 !commentInfo.responseTo &&
-                <Fragment>
-                    <SingleComment updateComment={updateComment} comment={commentInfo} videoId={videoId} />
-                </Fragment>
+                <SingleComment updateComment={updateComment} comment={commentInfo} videoId={videoId} />
             }
         </Fragment>
     ))
