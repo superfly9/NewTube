@@ -35,15 +35,16 @@ function Comment(props) {
                 }
             })
     }
-    const renderSingleComments = commentList && commentList.map(
+    const renderComments = commentList && commentList.map(
         (commentInfo,index)=>(
             !commentInfo.responseTo &&
             <Fragment key={index}>
                 <SingleComment updateComment={updateComment} comment={commentInfo} videoId={videoId} />
+                <ReplyComment commentList={commentList} videoId={videoId} updateComment={updateComment} parentId={commentInfo._id} />
             </Fragment>
     ))
     
-    const cancelComment = () =>setShowComment(!ShowComment)
+    const cancelComment = () =>{setShowComment(!ShowComment)}
     
     const renderForm = () =>{
         if (userData._id) {
@@ -52,7 +53,6 @@ function Comment(props) {
                 <form onSubmit={submitComment} className='root_comment_form'>
                     <textarea className='root_comment_textarea' 
                         value={CommentValue}
-                        onBlur={cancelComment}
                         onChange={textAreaChange}
                         onClick={cancelComment}
                         placeholder='내용을 입력하세요'
@@ -83,7 +83,7 @@ function Comment(props) {
             <p>댓글</p>
             <hr />
             {userData&&renderForm()}
-            {renderSingleComments}
+            {renderComments}
         </div>
     )
 }

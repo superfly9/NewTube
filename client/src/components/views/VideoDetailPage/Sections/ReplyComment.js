@@ -6,28 +6,27 @@ function ReplyComment(props) {
     const {commentList,parentId,videoId,updateComment}=props;
     const [CommentNumber,setCommentNumber] = useState(0);
     const [OpenReply,setOpenReply] = useState(false);
-    useEffect(()=>{
-        let commentNumber = 0;
-        commentList.map((comment,index)=>{
-            if (comment.responseTo === parentId) {
-                commentNumber++;
-            }
-            setCommentNumber(commentNumber);
-        })
-    },[])
-    console.log('at Reply:',props)
+
+    const showComment = ()=>{
+        setOpenReply(!OpenReply)
+    }
+ 
+    console.log('Reply Comment:',commentList,parentId,videoId)
     const renderReplyComment = commentList && commentList.map((commentInfo,index)=>(
-            parentId=== commentInfo.responseTo &&
+        commentInfo.responseTo === parentId &&
             <Fragment key={index}>
-                <SingleComment updateComment={updateComment} comment={commentInfo} videoId={videoId} />
-                <ReplyComment parentId={commentInfo._id} videoId={videoId} commentList={commentList} />
-            </Fragment>))
-    const toggleReply = setOpenReply(!OpenReply);
+                <div style={{marginLeft:'30px'}}>
+                    <SingleComment updateComment={updateComment} comment={commentInfo} videoId={videoId} />
+                    <ReplyComment commentList={commentList} videoId={videoId} updateComment={updateComment} parentId={commentInfo._id} />
+                </div>
+            </Fragment>
+        
+    ))
+
     return (
         <div>
-            {CommentNumber >0 &&
-                <p onClick={toggleReply}>View {CommentNumber} more comment(s)</p>
-            }
+            <p onClick={showComment}>View Seoul Comments</p>
+            {OpenReply&&renderReplyComment}
         </div>
     )
 }
