@@ -18,8 +18,7 @@
     margin-right: .5rem;
 }
 .root_comment_form button {
-    padding:.3rem 1rem;
-    width: 10%;
+    padding:.3rem 2rem;
     font-weight: 500;
 }
 .comment_writer_container {

@@ -35,7 +35,9 @@ function Comment(props) {
     }
     const renderSingleComments = commentList && commentList.map((commentInfo,index)=>(
         <Fragment key={index}>
-            <SingleComment comment={commentInfo} videoId={videoId} />
+            {
+                !commentInfo.responseTo &&<SingleComment updateComment={updateComment} comment={commentInfo} videoId={videoId} />
+            }
         </Fragment>
     ))
     const cancelComment = () =>{
@@ -50,7 +52,8 @@ function Comment(props) {
                         value={CommentValue}
                         onChange={textAreaChange}
                         onClick={cancelComment}
-                    >Seoul</textarea>
+                        placeholder='내용을 입력하세요'
+                    ></textarea>
                     {ShowComment &&
                         <div className='button_container'>
                             <button className='cancel_btn' onClick={cancelComment}>취소</button>

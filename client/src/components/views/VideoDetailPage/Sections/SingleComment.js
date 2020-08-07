@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import './Comment.css';
 
 function SingleComment(props) {
-    const {comment,videoId}=props;
+    const {comment,videoId,updateComment}=props;
     const user = useSelector(state=>state.user);
     const {userData} = user;
     const [OpenComment,setOpenComment] = useState(false);
@@ -18,9 +18,18 @@ function SingleComment(props) {
         const submitVariable = {
             videoId : videoId ,
             writer  : userData._id,
-            content : CommentValue
+            content : CommentValue,
+            responseTo : comment._id
         }
         Axios.post('/api/comment/saveComment',submitVariable)
+            .then(response=>{
+                if (response.data.success) {
+                    const { data : {commentInfo}} = response;
+                    console.log('comment Info at SingleComment:',commentInfo);
+                    updateComment(commentInfo);
+                    setCommentValue('');
+                }
+            })
     }
     const textAreaChange = (e)=>{
         setCommentValue(e.target.value);
@@ -32,7 +41,8 @@ function SingleComment(props) {
                 <textarea className='root_comment_textarea' 
                     value={CommentValue}
                     onChange={textAreaChange}
-                >Seoul</textarea>                    
+                    placeholder='내용을 입력하세요'
+                ></textarea>                    
                 <div className='button_container'>
                     <button className='cancel_btn' onClick={toggleOpenComment}>취소</button>
                     <button>댓글</button>
