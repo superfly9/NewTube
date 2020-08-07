@@ -10,6 +10,7 @@ function SingleComment(props) {
     const [OpenComment,setOpenComment] = useState(false);
     const [CommentValue,setCommentValue] = useState('');
 
+    console.log('Single Comment Info:',comment)
     const toggleOpenComment = () =>{
         setOpenComment(!OpenComment)
     }
@@ -52,16 +53,17 @@ function SingleComment(props) {
     )
     return (
         <Fragment>
-            {comment.writer && <div className='singleComment_container'>
-                    <div className='comment_writer_container'>
-                        <img className='comment_writer_image' src={comment.writer.image} />
-                        <div className='writer_info'>
-                            <span>{comment.writer.name}</span>
-                            <p>{comment.content}</p>
-                        </div>
+            {comment.writer && 
+            <div className='singleComment_container'> 
+                <div className='comment_writer_container'>
+                    <img className='comment_writer_image' src={comment.writer.image} />
+                    <div className='writer_info'>
+                        <span>{comment.writer.name}</span>
+                        <p>{comment.content}</p>
                     </div>
-            <p onClick={toggleOpenComment}>댓글 달기</p>
-            {OpenComment && renderForm()}
+                </div>
+                <p onClick={toggleOpenComment}>댓글 달기</p>
+                {OpenComment && renderForm()}
             </div>
             }
         </Fragment>

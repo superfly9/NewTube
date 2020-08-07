@@ -3,6 +3,7 @@ import './Comment.css';
 import {useSelector} from 'react-redux';
 import Axios from 'axios';
 import SingleComment from './SingleComment';
+import ReplyComment from './ReplyComment';
 function Comment(props) {
     const user = useSelector(state=>state.user);
     const {userData} = user;
@@ -10,9 +11,11 @@ function Comment(props) {
     const [CommentValue,setCommentValue] = useState([]);
     const [ShowComment,setShowComment] = useState(true);
 
+    console.log('at Comment commentList:',commentList)
     const textAreaChange = (e)=>{
         setCommentValue(e.target.value);
     }
+    // 로그인 했을 때만 댓글 창 사용가능하게 해야
     const submitComment = (e)=>{
         e.preventDefault();
         const submitVariables = {
@@ -36,31 +39,54 @@ function Comment(props) {
     const renderSingleComments = commentList && commentList.map((commentInfo,index)=>(
         <Fragment key={index}>
             {
-                !commentInfo.responseTo &&<SingleComment updateComment={updateComment} comment={commentInfo} videoId={videoId} />
+                !commentInfo.responseTo &&
+                <Fragment>
+                    <SingleComment updateComment={updateComment} comment={commentInfo} videoId={videoId} />
+                </Fragment>
             }
         </Fragment>
     ))
     const cancelComment = () =>{
         setShowComment(!ShowComment)
     }
+    const renderComment = () =>{
+        console.log('userData:',userData)
+        if (userData._id) {
+            let userId = userData._id
+            return (
+                <form onSubmit={submitComment} className='root_comment_form'>
+                <textarea className='root_comment_textarea' 
+                    value={CommentValue}
+                    onChange={textAreaChange}
+                    onClick={cancelComment}
+                    placeholder='내용을 입력하세요'
+                ></textarea>
+                {ShowComment &&
+                    <div className='button_container'>
+                        <button className='cancel_btn' onClick={cancelComment}>취소</button>
+                        <button>댓글</button>
+                    </div>
+                }
+            </form>
+            )
+        } else {
+            return (
+                <form onSubmit={submitComment} className='root_comment_form'>
+                <textarea className='root_comment_textarea' 
+                    value={CommentValue}
+                    onChange={textAreaChange}
+                    onClick={cancelComment}
+                    placeholder='로그인 후 댓글 등록이 가능합니다.'
+                ></textarea>
+            </form>
+            )
+        }
+    }
     return (
         <div>
             <p>댓글</p>
             <hr />
-                <form onSubmit={submitComment} className='root_comment_form'>
-                    <textarea className='root_comment_textarea' 
-                        value={CommentValue}
-                        onChange={textAreaChange}
-                        onClick={cancelComment}
-                        placeholder='내용을 입력하세요'
-                    ></textarea>
-                    {ShowComment &&
-                        <div className='button_container'>
-                            <button className='cancel_btn' onClick={cancelComment}>취소</button>
-                            <button>댓글</button>
-                        </div>
-                    }
-                </form>
+            {userData&&renderComment()}
             {renderSingleComments}
         </div>
     )
