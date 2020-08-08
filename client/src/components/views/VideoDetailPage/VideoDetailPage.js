@@ -5,6 +5,7 @@ import './VideoDetailPage.css';
 import SideVideo from './Sections/SideVideo';
 import Subscribe from './Sections/Subscribe';
 import Comment from './Sections/Comment';
+import LikeDisLike from './Sections/LikeDisLike';
 
 function VideoDetailPage(props) {
     const {match : {params : {videoId}}} =props;
@@ -54,8 +55,9 @@ function VideoDetailPage(props) {
                             <span>{VideoInfo.description}</span>
                         </div>
 
-                        <div className='subscribe_btn_container'>
-                            {localStorage.getItem('userId')!==VideoInfo.writer._id && 
+                        <div className='userAction_container'>
+                            <LikeDisLike video videoId={videoId} userId={localStorage.getItem('userId')} />
+                            {localStorage.getItem('userId')&&localStorage.getItem('userId')!==VideoInfo.writer._id && 
                             <Subscribe userTo={VideoInfo.writer._id} userFrom={localStorage.getItem('userId')} />
                             }
                         </div>

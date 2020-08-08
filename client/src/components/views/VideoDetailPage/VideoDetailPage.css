@@ -15,6 +15,10 @@
 .video_info_writer_thumbnail img {
     width: 80%;
 }
-.subscribe_btn_container {
+.userAction_container {
     margin-left: auto;
+    display: flex;
+}
+.userAction_container button {
+    margin-left: 1.5rem;
 }
