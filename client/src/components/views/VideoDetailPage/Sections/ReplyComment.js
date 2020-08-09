@@ -1,4 +1,4 @@
-import React, {useEffect, Fragment, useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import SingleComment from './SingleComment'
 
 function ReplyComment(props) {
@@ -27,7 +27,7 @@ function ReplyComment(props) {
 
     return (
         <div className='reply_comment_container'>
-            <p onClick={showComment}>View {CommentNumber} Comment(s)</p>
+            {CommentNumber >0  &&<p onClick={showComment}>View {CommentNumber} Comment(s)</p>}
             {OpenReply&&renderReplyComment}
         </div>
     )

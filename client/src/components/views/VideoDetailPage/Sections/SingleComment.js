@@ -1,4 +1,4 @@
-import React,{useEffect,useState, Fragment} from 'react'
+import React,{ useState } from 'react'
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
 import './Comment.css';
