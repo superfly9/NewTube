@@ -17,7 +17,7 @@ function ReplyComment(props) {
         return (
             commentInfo.responseTo === parentId &&
             <Fragment key={index}>
-                <div style={{marginLeft:'30px'}}>
+                <div className='comment_container'>
                     <SingleComment updateComment={updateComment} comment={commentInfo} videoId={videoId} />
                     <ReplyComment commentList={commentList} videoId={videoId} updateComment={updateComment} parentId={commentInfo._id} />
                 </div>
