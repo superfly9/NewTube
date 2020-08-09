@@ -13,7 +13,6 @@ function ReplyComment(props) {
  
     const renderReplyComment = commentList && commentList.map((commentInfo,index)=>{
         if (commentInfo.responseTo === parentId) CommentNumber++;
-        console.log(CommentNumber)
         if (index === commentList.length ) setCommentNumber(CommentNumber);
         return (
             commentInfo.responseTo === parentId &&
