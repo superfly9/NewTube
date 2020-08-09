@@ -56,7 +56,6 @@ function LikeDisLike(props) {
 
     const handleLike=()=>{
         if (Like === 'Like') {
-            //likeNumber 1 감소 / like null로 바꾸고 /db에서 like 1개 삭제
             Axios.post('/api/like/unLike',body)
                 .then(response=>{
                     if (response.data.success) {
@@ -65,8 +64,6 @@ function LikeDisLike(props) {
                     }
                 })
         } else {
-            // likeNuber 1 up / like 'Liked'로 바꾸기 / disLike 클릭 되어있었다면 숫자1 down / disLike null로 바꾸기
-        
             Axios.post('/api/like/upLike',body)
             .then(response=>{
                 setLike('Like');
@@ -84,7 +81,6 @@ function LikeDisLike(props) {
     const handleDisLike=()=>{
         console.log('DisLike Body:',body);
         if (DisLike === 'DisLike') {
-            //싫어요 눌러져 있는 상황서 또 클릭 => 싫어요 null /  싫어요 숫자 1 감소
             Axios.post('/api/like/unDisLike',body)
                 .then(response=>{
                     if (response.data.success) {
@@ -104,8 +100,6 @@ function LikeDisLike(props) {
                         }
                     }
                 })
-            //싫어요 클릭 안되있을 때 클릭 => 좋아요 클릭되어있었다면 좋아요 수 감소/좋아요 null /좋아요 모델 하나 삭제
-            //  좋아요 null이었다면 싫어요 DisLike  + 실헝요 수 1 증가  / 싫어요 모델 생성
         }
     }
     return (

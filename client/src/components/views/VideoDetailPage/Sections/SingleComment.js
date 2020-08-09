@@ -2,11 +2,13 @@ import React,{useEffect,useState, Fragment} from 'react'
 import Axios from 'axios';
 import { useSelector } from 'react-redux';
 import './Comment.css';
+import LikeDisLike from './LikeDisLike';
 
 function SingleComment(props) {
     const {comment,videoId,updateComment}=props;
     const user = useSelector(state=>state.user);
     const {userData} = user;
+    const userId = userData._id
     const [OpenComment,setOpenComment] = useState(false);
     const [CommentValue,setCommentValue] = useState('');
 
@@ -75,7 +77,10 @@ function SingleComment(props) {
                         <p>{comment.content}</p>
                     </div>
                 </div>
-                <p onClick={toggleOpenComment}>댓글 달기</p>
+                <div className='userAction_container'>
+                    <p onClick={toggleOpenComment}>댓글 달기</p>
+                    {userId && <LikeDisLike video videoId={videoId} userId={userId} /> }
+                </div>
             </div>
         )
     }

@@ -11,6 +11,7 @@ function VideoDetailPage(props) {
     const {match : {params : {videoId}}} =props;
     const [Comments,setComments] = useState([]);
     const [VideoInfo,setVideoInfo] = useState({});
+    const userId=localStorage.getItem('userId');
     useEffect(() => {
         const body ={
             videoId
@@ -37,7 +38,6 @@ function VideoDetailPage(props) {
 
     const updateComment = (newComment)=>{
         console.log('when Update Comment:',newComment);
-        //newComment => {_id,videoId,content,createdAt,updateAt}
         setComments([...Comments,newComment])
     }
 
@@ -56,8 +56,8 @@ function VideoDetailPage(props) {
                         </div>
 
                         <div className='userAction_container'>
-                            <LikeDisLike video videoId={videoId} userId={localStorage.getItem('userId')} />
-                            {localStorage.getItem('userId')&&localStorage.getItem('userId')!==VideoInfo.writer._id && 
+                            {userId && <LikeDisLike video videoId={videoId} userId={userId} /> }
+                            {userId &&userId!==VideoInfo.writer._id && 
                             <Subscribe userTo={VideoInfo.writer._id} userFrom={localStorage.getItem('userId')} />
                             }
                         </div>
