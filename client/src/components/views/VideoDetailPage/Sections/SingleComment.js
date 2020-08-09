@@ -8,7 +8,7 @@ function SingleComment(props) {
     const {comment,videoId,updateComment}=props;
     const user = useSelector(state=>state.user);
     const {userData} = user;
-    const userId = userData._id
+    const userId = localStorage.getItem('userId');
     const [OpenComment,setOpenComment] = useState(false);
     const [CommentValue,setCommentValue] = useState('');
 

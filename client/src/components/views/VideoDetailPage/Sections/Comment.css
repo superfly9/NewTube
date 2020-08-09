@@ -42,10 +42,12 @@
 .userAction_container {
     display:  flex;
     align-items: center;
-    margin: .5rem 0;
 }
 .userAction_container p {
     margin: auto;
     margin-left: 0;
     margin-right: 1rem;
+}
+.reply_comment_container {
+    margin: .5rem 0;
 }
