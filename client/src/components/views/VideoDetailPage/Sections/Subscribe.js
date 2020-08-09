@@ -24,7 +24,6 @@ function Subscribe(props) {
             .then(response=>{
                 if (response.data.success) {
                     const {data:{subscribed}} = response;
-                    console.log('check:',subscribed);
                     setSubscribed(subscribed);
                 } else {
                     alert('구독 여부 확인에 실패했습니다.')

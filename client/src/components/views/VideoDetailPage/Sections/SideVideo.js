@@ -9,7 +9,6 @@ function SideVideo(props) {
         Axios.get('/api/video/getVideos')
             .then(response=>{
                 if (response.data.success) {
-                    console.log('at Side:',[...response.data.videos])
                     setSideVideos([...response.data.videos])
                 } else {
                     alert('비디오 정보를 가져오는 데 실패했습니다.')
