@@ -78,4 +78,17 @@ videoRouter.post('/getVideoDetail',(req,res)=>{
         })
 })
 
+videoRouter.post('/deleteVideo',(req,res)=>{
+    const {body : {videoId,writerId}} = req;
+    Video.findOneAndDelete({
+        writer : writerId,
+        _id : videoId
+    }).exec((err,result)=>{
+            if (err) return res.json({err,success:false});
+            console.log('delted Video:',result);
+            res.json({success:true});
+        })
+})
+
+
 module.exports = videoRouter;

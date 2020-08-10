@@ -29,7 +29,6 @@ function VideoDetailPage(props) {
             .then(response=>{
                 if (response.data.success) {
                     const { data : {commentList}} = response;
-                    console.log('commentList:',commentList);
                     setComments([...commentList]);
                 } else {
                     alert('댓글 정보를 가져오는 데 실패했습니다.')
@@ -38,10 +37,21 @@ function VideoDetailPage(props) {
     }, [])
 
     const updateComment = (newComment)=>{
-        console.log('when Update Comment:',newComment);
         setComments([...Comments,newComment])
     }
 
+    const deleteVideo = (writerId) =>{
+        let body = {writerId,videoId}
+        Axios.post(`${CORS_URL}/video/deleteVideo`,body)
+            .then(response=>{
+                if (response.data.success) {
+                    //비디오 삭제 요청=>db에서 삭제 후 응답이 success면 홈으로 이동
+                    props.history.push('/');
+                } else {
+                    alert('비디오 삭제에 실패했습니다.')
+                }
+            })
+    }
     const renderVideo = ()=>{
         if (VideoInfo.writer) {
             return (
@@ -60,8 +70,11 @@ function VideoDetailPage(props) {
                             {userId && <LikeDisLike video videoId={videoId} userId={userId} /> }
                             {userId &&userId!==VideoInfo.writer._id && 
                             <Subscribe userTo={VideoInfo.writer._id} userFrom={localStorage.getItem('userId')} />
-                            }
+                        }
                         </div>
+                        {
+                        userId === VideoInfo.writer._id &&<button className='delete_video_btn' onClick={()=>deleteVideo(userId)}>Delete Video</button>
+                        }
                     </div>
                 </Fragment>
             )

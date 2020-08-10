@@ -22,3 +22,8 @@
 .userAction_container button {
     margin-left: 1.5rem;
 }
+.delete_video_btn {
+    border-radius: 10px;
+    font-weight: 500;
+    border: none;
+}
