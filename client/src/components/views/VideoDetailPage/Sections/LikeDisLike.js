@@ -16,23 +16,19 @@ function LikeDisLike(props) {
     const [Like,setLike] = useState(null);
     const [DisLike,setDisLike] = useState(null);
     const {video,videoId,userId,commentId} =props;
-    console.log('CommnetId:',commentId)
     let body = {};
     if (video) {
-        //userId:현재 로그인한 유저의 아이디
         body = {videoId}
     } else {
         body = {commentId}
     }
 
     useEffect(()=>{
-        console.log("body:",body);
         Axios.post(`${CORS_URL}/like/getLikeNumber`,body)
             .then(response=>{
                 if (response.data.success) {
                     const { data : {like}} =response;
                     setLikeNumber(like.length);
-                    console.log('Like Info:',like)
                     like.map((likeInfo)=>{
                         if (likeInfo.userId === userId) setLike('Like');
                     })
@@ -44,7 +40,6 @@ function LikeDisLike(props) {
             .then(response=>{
                 if (response.data.success) {
                     const { data : {dislike}} =response;
-                    console.log('DisLike Info:',dislike)
                     setDisLikeNumber(dislike.length);
                     dislike.map((disLikeInfo)=>{
                         if (disLikeInfo.userId === userId) setDisLike('DisLike');
@@ -62,7 +57,6 @@ function LikeDisLike(props) {
         } else {
             body = {commentId,userId}
         }
-        console.log('handleLikeBody:',body,video)
         if (Like === 'Like') {
             Axios.post(`${CORS_URL}/like/unLike`,body)
                 .then(response=>{
@@ -93,7 +87,6 @@ function LikeDisLike(props) {
         } else {
             body = {commentId,userId}
         }
-        console.log('handleDisLikeBody:',body,video)
         if (DisLike === 'DisLike') {
             Axios.post(`${CORS_URL}/like/unDisLike`,body)
                 .then(response=>{
