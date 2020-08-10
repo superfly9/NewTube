@@ -1,6 +1,6 @@
 import React from 'react';
 import { Menu } from 'antd';
-import axios from 'axios';
+import Axios from 'axios';
 import { USER_SERVER } from '../../../Config';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
@@ -9,9 +9,11 @@ function RightMenu(props) {
   const user = useSelector(state => state.user)
 
   const logoutHandler = () => {
-    axios.get(`${USER_SERVER}/logout`).then(response => {
+    console.log(`${USER_SERVER}/logout`);
+    Axios.post(`${USER_SERVER}/logout`,{},{withCredentials:true}).then(response => {
+      console.log(response)
       if (response.status === 200) {
-        props.history.push("/login");
+        props.history.push("/");
       } else {
         alert('Log Out Failed')
       }
@@ -32,8 +34,8 @@ function RightMenu(props) {
   } else {
     return (
       <Menu mode={props.mode}>
-        <Menu.Item key="upload">
-          <a href='/video/upload'>Upload</a>
+        <Menu.Item key="create">
+          <a href="/video/upload">Upload</a>
         </Menu.Item>
         <Menu.Item key="logout">
           <a onClick={logoutHandler}>Logout</a>

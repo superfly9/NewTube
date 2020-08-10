@@ -1,6 +1,7 @@
 import React,{useEffect,useState, Fragment} from 'react'
 import Axios from 'axios';
 import './Subscribe.css';
+import { CORS_URL } from '../../../Config';
 
 function Subscribe(props) {
     const { userTo,userFrom }=props;
@@ -10,7 +11,7 @@ function Subscribe(props) {
     useEffect(()=>{
         //userTo:비디오 창작자의 mongoDBId userFrom:로그인한 유저의 mongoDBId
         const body = { userTo }
-        Axios.post('/api/subscribe/getSubscribeNumber',body)
+        Axios.post(`${CORS_URL}/subscribe/getSubscribeNumber`,body)
             .then(response=>{
                 if (response.data.success) {
                     const {data :{subscribeNumber}} = response;
@@ -20,7 +21,7 @@ function Subscribe(props) {
                 }
             })
         const subscribedCheckObj = {userTo,userFrom};
-        Axios.post('/api/subscribe/subscribed',subscribedCheckObj)
+        Axios.post(`${CORS_URL}/subscribe/subscribed`,subscribedCheckObj)
             .then(response=>{
                 if (response.data.success) {
                     const {data:{subscribed}} = response;
@@ -35,7 +36,7 @@ function Subscribe(props) {
         const body = {userTo,userFrom};
         if (Subscribed) {
         //구독 중 클릭시 구독 해지
-            Axios.post('/api/subscribe/removeFromSubScribe',body)
+            Axios.post(`${CORS_URL}/subscribe/removeFromSubScribe`,body)
                 .then(response=>{
                     if (response.data.success) {
                         setSubscribeNumber(SubscribeNumber-1);
@@ -46,7 +47,7 @@ function Subscribe(props) {
                 })
         } else {
         //구독 중이 아니라면 구독목록에 추가
-            Axios.post('/api/subscribe/addToSubscribe',body)
+            Axios.post(`${CORS_URL}/subscribe/addToSubscribe`,body)
                 .then(response=>{
                     if (response.data.success) {
                         setSubscribeNumber(SubscribeNumber+1)

@@ -7,6 +7,7 @@ import {
     DislikeFilled
   } from '@ant-design/icons';
 import Axios from 'axios';
+import { CORS_URL } from '../../../Config';
 
 
 function LikeDisLike(props) {
@@ -26,7 +27,7 @@ function LikeDisLike(props) {
 
     useEffect(()=>{
         console.log('Body:',body);
-        Axios.post('/api/like/getLikeNumber',body)
+        Axios.post(`${CORS_URL}/like/getLikeNumber`,body)
             .then(response=>{
                 if (response.data.success) {
                     const { data : {like}} =response;
@@ -39,7 +40,7 @@ function LikeDisLike(props) {
                     alert('좋아요 수를 가져오는 데 실패했습니다.')
                 }
             })
-        Axios.post('/api/like/getDisLikeNumber',body)
+        Axios.post(`${CORS_URL}/like/getDisLikeNumber`,body)
             .then(response=>{
                 if (response.data.success) {
                     const { data : {dislike}} =response;
@@ -56,7 +57,7 @@ function LikeDisLike(props) {
 
     const handleLike=()=>{
         if (Like === 'Like') {
-            Axios.post('/api/like/unLike',body)
+            Axios.post(`${CORS_URL}/api/like/unLike`,body)
                 .then(response=>{
                     if (response.data.success) {
                         setLikeNumber(LikeNumber-1);
@@ -64,7 +65,7 @@ function LikeDisLike(props) {
                     }
                 })
         } else {
-            Axios.post('/api/like/upLike',body)
+            Axios.post(`${CORS_URL}/api/like/upLike`,body)
             .then(response=>{
                 setLike('Like');
                 setLikeNumber(LikeNumber+1);
@@ -81,7 +82,7 @@ function LikeDisLike(props) {
     const handleDisLike=()=>{
         console.log('DisLike Body:',body);
         if (DisLike === 'DisLike') {
-            Axios.post('/api/like/unDisLike',body)
+            Axios.post(`${CORS_URL}/like/unDisLike`,body)
                 .then(response=>{
                     if (response.data.success) {
                         setDisLikeNumber(DisLikeNumber-1);
@@ -89,7 +90,7 @@ function LikeDisLike(props) {
                     }
                 })
         } else {
-            Axios.post('/api/like/upDisLike',body)
+            Axios.post(`${CORS_URL}/like/upDisLike`,body)
                 .then(response=>{
                     if (response.data.success) {
                         setDisLike('DisLike');

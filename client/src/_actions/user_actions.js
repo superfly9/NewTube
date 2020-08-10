@@ -17,8 +17,9 @@ export function registerUser(dataToSubmit){
     }
 }
 
-export function loginUser(dataToSubmit){
-    const request = axios.post(`${USER_SERVER}/login`,dataToSubmit)
+export async function loginUser(dataToSubmit){
+    console.log('at Login',dataToSubmit)
+    const request =await axios.post(`${USER_SERVER}/login`,dataToSubmit,{withCredentials:true})
                 .then(response => response.data);
 
     return {
@@ -27,8 +28,8 @@ export function loginUser(dataToSubmit){
     }
 }
 
-export function auth(){
-    const request = axios.get(`${USER_SERVER}/auth`)
+export async function auth(){
+    const request =await axios.post(`${USER_SERVER}/auth`,{},{withCredentials:true})
     .then(response => response.data);
 
     return {
@@ -37,9 +38,10 @@ export function auth(){
     }
 }
 
-export function logoutUser(){
-    const request = axios.get(`${USER_SERVER}/logout`)
+export async function logoutUser(){
+    const request =await axios.get(`${USER_SERVER}/logout`)
     .then(response => response.data);
+    console.log('logout Result:',request);
 
     return {
         type: LOGOUT_USER,

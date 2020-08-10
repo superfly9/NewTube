@@ -3,32 +3,33 @@ import './LandingPage.css';
 import Axios from 'axios'
 import {Row,Col} from 'antd';
 import moment from 'moment';
+import { CORS_URL } from '../../Config';
 
 function LandingPage() {
     const [Videos,setVideos] = useState([]);
     useEffect(() => {
-        Axios.get('/api/video/getVideos')
+        Axios.get(`${CORS_URL}/video/getVideos`)
             .then(response=>{
                 if (response.data.success) {
                     const { data : {videos}} =response;
-                    console.log(videos);
                     setVideos(videos);
                 }
             })
     }, [])
-    const renderVideo = Videos && Videos.map((videoInfo,index)=>{
+    const renderVideo = Videos.length > 0 && Videos.map((videoInfo,index)=>{
+        console.log(videoInfo)
         const minutes = Math.floor(videoInfo.duration/60);
         const second  = Math.floor(videoInfo.duration - (minutes*60));
      return (<Col lg={6} md={8} xs={24} key={index}>
                 <div className='landing_video_thumbnail'>
                     <a href={`/video/${videoInfo._id}`}>
-                        <img src={`http://localhost:5000/${videoInfo.thumbnail}`}/>
+                        <img src={`${CORS_URL}/${videoInfo.thumbnail}`}/>
                         <span className='landing_video_duration'>{`${minutes}:${second}`}</span>
                     </a>
                 </div>
                 <div className='landing_video_info_container'>
                     <div className='landing_video_writer_thumbnail'>
-                        <img src={`${videoInfo.writer.image}`}/>
+                        <img src={videoInfo.writer &&`${videoInfo.writer.image}`}/>
                     </div>
                     <div className='landing_video_info'>
                         <span>{videoInfo.title}</span>

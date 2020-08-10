@@ -6,6 +6,7 @@ import SideVideo from './Sections/SideVideo';
 import Subscribe from './Sections/Subscribe';
 import Comment from './Sections/Comment';
 import LikeDisLike from './Sections/LikeDisLike';
+import { CORS_URL } from '../../Config';
 
 function VideoDetailPage(props) {
     const {match : {params : {videoId}}} =props;
@@ -16,7 +17,7 @@ function VideoDetailPage(props) {
         const body ={
             videoId
         }
-        Axios.post('/api/video/getVideoDetail',body)
+        Axios.post(`${CORS_URL}/video/getVideoDetail`,body)
             .then(response=>{
                 if (response.data.success) {
                     setVideoInfo(response.data.videoInfo);
@@ -24,7 +25,7 @@ function VideoDetailPage(props) {
                     alert('비디오 정보를 가져오는 데 실패했습니다.')
                 }
             })
-        Axios.post('/api/comment/getComments',body)
+        Axios.post(`${CORS_URL}/comment/getComments`,body)
             .then(response=>{
                 if (response.data.success) {
                     const { data : {commentList}} = response;
@@ -46,7 +47,7 @@ function VideoDetailPage(props) {
             return (
                 <Fragment>
                     <div className='video_container'>
-                        <video src={`http://localhost:5000/${VideoInfo.filePath}`} controls />
+                        <video src={`${CORS_URL}/${VideoInfo.filePath}`} controls />
                     </div>
                     <div className='video_info_container'>
                         <span className='video_info_writer_thumbnail'><img src={VideoInfo.writer.image} /></span>
@@ -66,7 +67,9 @@ function VideoDetailPage(props) {
             )
         } else {
             return (
-                <Fragment>...Loading</Fragment>
+                <Fragment>
+                    <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>...Loading</div>
+                </Fragment>
             )
         }
     }
