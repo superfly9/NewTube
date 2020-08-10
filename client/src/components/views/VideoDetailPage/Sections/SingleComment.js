@@ -3,6 +3,7 @@ import Axios from 'axios';
 import { useSelector } from 'react-redux';
 import './Comment.css';
 import LikeDisLike from './LikeDisLike';
+import { CORS_URL } from '../../../Config';
 
 function SingleComment(props) {
     const {comment,videoId,updateComment}=props;
@@ -23,7 +24,7 @@ function SingleComment(props) {
             content : CommentValue,
             responseTo : comment._id
         }
-        Axios.post('/api/comment/saveComment',submitVariable)
+        Axios.post(`${CORS_URL}/comment/saveComment`,submitVariable)
             .then(response=>{
                 if (response.data.success) {
                     const { data : {commentInfo}} = response;
@@ -79,7 +80,7 @@ function SingleComment(props) {
                 </div>
                 <div className='userAction_container'>
                     <p onClick={toggleOpenComment}>댓글 달기</p>
-                    {userId && <LikeDisLike video videoId={videoId} userId={userId} /> }
+                    {userId && <LikeDisLike commentId={comment._id} videoId={videoId} userId={userId} /> }
                 </div>
             </div>
         )

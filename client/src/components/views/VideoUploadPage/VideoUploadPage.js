@@ -3,6 +3,7 @@ import {useSelector} from 'react-redux';
 import Dropzone from '../utils/DropZone';
 import Axios from 'axios';
 import './VideoUploadPage.css';
+import { CORS_URL } from '../../Config';
 
 function VideoUploadPage(props) {
     const user = useSelector(state => state.user);
@@ -44,7 +45,7 @@ function VideoUploadPage(props) {
             thumbnail :ThumbnailPath,
             duration: Duration
         }
-        Axios.post('/api/video/uploadVideo',body)
+        Axios.post(`${CORS_URL}/video/uploadVideo`,body)
             .then(response=>{
                 if (response.data.success) {
                     alert('Success! 1초 뒤 홈으로 이동합니다.')
@@ -74,7 +75,6 @@ function VideoUploadPage(props) {
         setCategory(e.target.value);
     }
     const updateState =(childComponentInfo)=>{
-     //VideoFilePath,   ThumbnailPath ,Duration설정하는 함수
      const {filePath,thumbnailPath,fileDuration} = childComponentInfo;
      setVideoFilePath(filePath);
      setThumbnailPath(thumbnailPath);

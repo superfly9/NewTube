@@ -41,7 +41,6 @@ export async function auth(){
 export async function logoutUser(){
     const request =await axios.get(`${USER_SERVER}/logout`)
     .then(response => response.data);
-    console.log('logout Result:',request);
 
     return {
         type: LOGOUT_USER,

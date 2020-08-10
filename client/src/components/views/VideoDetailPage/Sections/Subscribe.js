@@ -65,7 +65,7 @@ function Subscribe(props) {
                 className='subscribe_btn' 
                 style={{backgroundColor:`${Subscribed ? 'gray':'red'}`}}
             >
-                {SubscribeNumber} {Subscribed ? '구독 취소' : '구독'}
+                {SubscribeNumber}  {Subscribed ? '구독 취소' : '구독'}
             </button>
         </Fragment>
     )

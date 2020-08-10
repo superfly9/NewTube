@@ -12,13 +12,13 @@
 .landing_video_duration {
     font-size: 12px;
     line-height: 20px;
-    margin: 4px;
     opacity: .8;
+    padding: 0 .8rem;
     letter-spacing: 1px;
     background-color: rgba(17, 17, 17, .8);
     position: absolute;
     bottom: 0;
-    right: 1rem;
+    right: 0;
     color: aliceblue;
 }
 .landing_video_thumbnail img {

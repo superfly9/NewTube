@@ -4,6 +4,7 @@ import {useSelector} from 'react-redux';
 import Axios from 'axios';
 import SingleComment from './SingleComment';
 import ReplyComment from './ReplyComment';
+import { CORS_URL } from '../../../Config';
 function Comment(props) {
     const user = useSelector(state=>state.user);
     const {userData} = user;
@@ -22,7 +23,7 @@ function Comment(props) {
             writer : userData._id,
             content : CommentValue
         }
-        Axios.post('/api/comment/saveComment',submitVariables)
+        Axios.post(`${CORS_URL}/comment/saveComment`,submitVariables)
             .then(response=>{
                 if (response.data.success) {
                     const {data : {commentInfo}} = response

@@ -16,17 +16,17 @@ function LikeDisLike(props) {
     const [Like,setLike] = useState(null);
     const [DisLike,setDisLike] = useState(null);
     const {video,videoId,userId,commentId} =props;
-
+    console.log('CommnetId:',commentId)
     let body = {};
     if (video) {
         //userId:현재 로그인한 유저의 아이디
-        body = {videoId,userId}
+        body = {videoId}
     } else {
-        body = {commentId,userId}
+        body = {commentId}
     }
 
     useEffect(()=>{
-        console.log('Body:',body);
+        console.log("body:",body);
         Axios.post(`${CORS_URL}/like/getLikeNumber`,body)
             .then(response=>{
                 if (response.data.success) {
@@ -56,8 +56,15 @@ function LikeDisLike(props) {
     },[])
 
     const handleLike=()=>{
+        let body = {};
+        if (video) {
+            body = {videoId,userId}
+        } else {
+            body = {commentId,userId}
+        }
+        console.log('handleLikeBody:',body,video)
         if (Like === 'Like') {
-            Axios.post(`${CORS_URL}/api/like/unLike`,body)
+            Axios.post(`${CORS_URL}/like/unLike`,body)
                 .then(response=>{
                     if (response.data.success) {
                         setLikeNumber(LikeNumber-1);
@@ -65,7 +72,7 @@ function LikeDisLike(props) {
                     }
                 })
         } else {
-            Axios.post(`${CORS_URL}/api/like/upLike`,body)
+            Axios.post(`${CORS_URL}/like/upLike`,body)
             .then(response=>{
                 setLike('Like');
                 setLikeNumber(LikeNumber+1);
@@ -80,7 +87,13 @@ function LikeDisLike(props) {
     }
 
     const handleDisLike=()=>{
-        console.log('DisLike Body:',body);
+        let body = {};
+        if (video) {
+            body = {videoId,userId}
+        } else {
+            body = {commentId,userId}
+        }
+        console.log('handleDisLikeBody:',body,video)
         if (DisLike === 'DisLike') {
             Axios.post(`${CORS_URL}/like/unDisLike`,body)
                 .then(response=>{

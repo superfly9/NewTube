@@ -11,7 +11,6 @@ commentRouter.post('/saveComment',(req,res)=>{
         Comment.findOne({_id : comment._id})  
             .populate('writer')
             .exec((err,commentInfo)=>{
-                console.log('commentInfo:',commentInfo);
             
                 if (err) return res.json({err,success:false})
                 res.json({success:true,commentInfo})
@@ -26,7 +25,6 @@ commentRouter.post('/getComments',(req,res)=>{
         .populate('writer')
         .exec((err,commentList)=>{
             if (err) return res.json({success:false,err});
-            console.log('get All Comments:',commentList);
             res.json({success:true,commentList});
         })
 })
