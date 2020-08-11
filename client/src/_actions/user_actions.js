@@ -1,4 +1,4 @@
-import axios from 'axios';
+import Axios from 'axios';
 import {
     LOGIN_USER,
     REGISTER_USER,
@@ -8,7 +8,7 @@ import {
 import { USER_SERVER } from '../components/Config.js';
 
 export function registerUser(dataToSubmit){
-    const request = axios.post(`${USER_SERVER}/register`,dataToSubmit)
+    const request = Axios.post(`${USER_SERVER}/register`,dataToSubmit)
         .then(response => response.data);
     
     return {
@@ -18,8 +18,7 @@ export function registerUser(dataToSubmit){
 }
 
 export async function loginUser(dataToSubmit){
-    console.log('at Login',dataToSubmit)
-    const request =await axios.post(`${USER_SERVER}/login`,dataToSubmit,{withCredentials:true})
+    const request =await Axios.post(`${USER_SERVER}/login`,dataToSubmit,{withCredentials:true})
                 .then(response => response.data);
 
     return {
@@ -29,7 +28,7 @@ export async function loginUser(dataToSubmit){
 }
 
 export async function auth(){
-    const request =await axios.post(`${USER_SERVER}/auth`,{},{withCredentials:true})
+    const request =await Axios.post(`${USER_SERVER}/auth`,{},{withCredentials:true})
     .then(response => response.data);
 
     return {
@@ -39,12 +38,18 @@ export async function auth(){
 }
 
 export async function logoutUser(){
-    const request =await axios.get(`${USER_SERVER}/logout`)
+    const request =await Axios.post(`${USER_SERVER}/logout`,{},
+    {withCredentials:true})
     .then(response => response.data);
-
+    console.log('when logout:',request);
     return {
         type: LOGOUT_USER,
         payload: request
     }
+    /* {
+        success : true,
+        type: logout_user
+    }
+    */
 }
 

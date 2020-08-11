@@ -17,7 +17,6 @@ function LandingPage() {
             })
     }, [])
     const renderVideo = Videos.length > 0 && Videos.map((videoInfo,index)=>{
-        console.log(videoInfo)
         const minutes = Math.floor(videoInfo.duration/60);
         const second  = Math.floor(videoInfo.duration - (minutes*60));
      return (<Col lg={6} md={8} xs={24} key={index}>
