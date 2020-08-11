@@ -4,8 +4,8 @@
   "description": "react boiler plate",
   "main": "index.js",
   "engines": {
-    "node": "12.x",
-    "npm": "6.x"
+    "node": "12.18.2",
+    "npm": "6.14.5"
   },
   "scripts": {
     "backend": "nodemon server/index.js",
