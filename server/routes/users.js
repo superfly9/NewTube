@@ -58,8 +58,10 @@ router.post("/login", (req, res) => {
 });
 
 router.post("/logout", auth, (req, res) => {
-    User.findOneAndUpdate({ _id: req.user._id }, { token: "", tokenExp: "" }, (err, doc) => {
+    console.log('USer at Logout:',req.user);
+    User.findOneAndUpdate({ _id: req.user._id }, { token: "", tokenExp: "" },{new:true},(err, doc) => {
         if (err) return res.json({ success: false, err });
+        console.log('server logout Docs:',doc)
         return res.status(200).send({
             success: true
         });

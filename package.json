@@ -11,7 +11,7 @@
     "backend": "nodemon server/index.js",
     "frontend": "npm run start --prefix client",
     "dev": "concurrently \"npm run backend\" \"npm run start --prefix client\"",
-    "start": "node index.js"
+    "start": "nodemon server/index.js"
   },
   "author": "John ahn",
   "license": "ISC",
