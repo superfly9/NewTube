@@ -10,7 +10,8 @@
   "scripts": {
     "backend": "nodemon server/index.js",
     "frontend": "npm run start --prefix client",
-    "start": "concurrently \"npm run backend\" \"npm run start --prefix client\""
+    "start": "concurrently \"npm run backend\" \"npm run start --prefix client\"",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "author": "John ahn",
   "license": "ISC",
