@@ -1,14 +1,10 @@
 const express = require('express');
-const router = express.Router();
+const userRouter = express.Router();
 const { User } = require("../models/User");
 
 const { auth } = require("../middleware/auth");
 
-//=================================
-//             User
-//=================================
-
-router.post("/auth", auth, (req, res) => {
+userRouter.post("/auth", auth, (req, res) => {
     res.status(200).json({
         _id: req.user._id,
         isAdmin: req.user.role === 0 ? false : true,
@@ -21,7 +17,7 @@ router.post("/auth", auth, (req, res) => {
     });
 });
 
-router.post("/register", (req, res) => {
+userRouter.post("/register", (req, res) => {
 
     const user = new User(req.body);
 
@@ -33,7 +29,7 @@ router.post("/register", (req, res) => {
     });
 });
 
-router.post("/login", (req, res) => {
+userRouter.post("/login", (req, res) => {
     User.findOne({ email: req.body.email }, (err, user) => {
         if (!user)
             return res.json({
@@ -57,15 +53,13 @@ router.post("/login", (req, res) => {
     });
 });
 
-router.post("/logout", auth, (req, res) => {
-    console.log('USer at Logout:',req.user);
+userRouter.post("/logout", auth, (req, res) => {
     User.findOneAndUpdate({ _id: req.user._id }, { token: "", tokenExp: "" },{new:true},(err, doc) => {
         if (err) return res.json({ success: false, err });
-        console.log('server logout Docs:',doc)
         return res.status(200).send({
             success: true
         });
     });
 });
 
-module.exports = router;
+module.exports = userRouter;

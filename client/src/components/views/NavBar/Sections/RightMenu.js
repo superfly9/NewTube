@@ -3,25 +3,16 @@ import { Menu } from 'antd';
 import Axios from 'axios';
 import { USER_SERVER } from '../../../Config';
 import { withRouter } from 'react-router-dom';
-import { useSelector,useDispatch } from "react-redux";
-import { logoutUser } from '../../../../_actions/user_actions';
+import { useSelector } from "react-redux";
 
 
 function RightMenu(props) {
-  const dispatch = useDispatch();
   const user = useSelector(state => state.user)
-
+  
   const logoutHandler = () => {
-    dispatch(logoutUser()).then(response => {
-      console.log(response)
-      console.log('user at Logout Client',user)
-      /* {
-        success : true,
-        type: logout_user
-    } 이러면 user에 영향을 못 주는데 이걸 어떻게 처리할지 생각해야
-    */
+    Axios.post(`${USER_SERVER}/logout`,{},{withCredentials:true}).then(response => {
       if (response.status === 200) {
-        props.history.push("/");
+        props.history.push('/login');
       } else {
         alert('Log Out Failed')
       }

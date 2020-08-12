@@ -8,7 +8,6 @@ import { CORS_URL } from '../../Config';
 function VideoUploadPage(props) {
     const user = useSelector(state => state.user);
     const {userData} = user;
-    console.log('redux userData:',userData);
     const [Title,setTitle] = useState('');
     const [Description,setDescription] = useState('');
     const [Category,setCategory] = useState(0);
