@@ -8,7 +8,7 @@ const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 
 const corsOption = {
-  origin : 'http://localhost:3000',
+  origin : ['http://localhost:3000','https://seoul-tube.herokuapp.com'], 
   credentials: true
 }
 
