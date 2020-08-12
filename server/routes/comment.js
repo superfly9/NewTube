@@ -37,7 +37,6 @@ commentRouter.post('/deleteComment',(req,res)=>{
                 .populate('writer')
                 .exec((err,remainComments)=>{
                     if (err) return res.json({err,success : false});
-                    console.log('show All Remain',remainComments);
                     res.json({success:true,remainComments});
                 })
         })
