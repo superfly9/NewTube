@@ -67,6 +67,23 @@ function SingleComment(props) {
             )
         }
     }
+    const deleteComment = ()=>{
+        const responseTo = comment.responseTo;
+        const writer = localStorage.getItem('userId');
+
+        Axios.post(`${CORS_URL}/comment/deleteComment`,{writer,responseTo,videoId})
+            .then(response=>{
+                if (response.data.success) {
+                    let {data:{remainComments}}=response
+                    //삭제가 완료된 커멘트 정보들을 updateComment통해 상위 컴포넌트로 전달
+                    console.log('Alive Comment:',remainComments)
+                    if (!remainComments) remainComments=[];
+                    updateComment(remainComments)
+                } else {
+                    alert('내 댓글 삭제에 실패했습니다.')
+                }
+            })
+    }
     const renderSingleComment =()=>{
         return (
             comment.writer && 
@@ -80,6 +97,8 @@ function SingleComment(props) {
                 </div>
                 <div className='userAction_container'>
                     <p onClick={toggleOpenComment}>댓글 달기</p>
+                    {/* 로그인 유저 === comment.user._id이면 댓글삭제 가능하게 */}
+                    {userId === comment.writer._id &&<button className='comment_delete_btn' onClick={deleteComment}>댓글 삭제</button>}
                     {userId && <LikeDisLike commentId={comment._id} videoId={videoId} userId={userId} /> }
                 </div>
             </div>

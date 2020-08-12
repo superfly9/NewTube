@@ -11,7 +11,7 @@ function Comment(props) {
     const {videoId,commentList,updateComment} = props;
     const [CommentValue,setCommentValue] = useState([]);
     const [ShowComment,setShowComment] = useState(false);
-
+    
     const textAreaChange = (e)=>{
         setCommentValue(e.target.value);
     }
@@ -30,7 +30,6 @@ function Comment(props) {
                     updateComment(commentInfo);
                     setCommentValue('');
                     setShowComment(false);
-                    // [{}]
                 } else {
                     alert('댓글 저장에 실패했습니다.')
                 }

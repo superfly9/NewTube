@@ -37,6 +37,9 @@ function VideoDetailPage(props) {
     }, [])
 
     const updateComment = (newComment)=>{
+        //댓글삭제시는 원래 있던 댓글과 합치는 게 아니라 남은 댓글만 저장
+        if (newComment.length) return setComments([...newComment])
+        //댓글 추가시 원래 있던 댓글과 합쳐서 새로운 comment생성
         setComments([...Comments,newComment])
     }
 

@@ -20,7 +20,6 @@ commentRouter.post('/saveComment',(req,res)=>{
 
 commentRouter.post('/getComments',(req,res)=>{
     const { body :{videoId} }  = req;
-    console.log('videoId:',videoId);
     Comment.find({videoId})
         .populate('writer')
         .exec((err,commentList)=>{
@@ -28,5 +27,21 @@ commentRouter.post('/getComments',(req,res)=>{
             res.json({success:true,commentList});
         })
 })
+
+commentRouter.post('/deleteComment',(req,res)=>{
+    const {body : {videoId,writer,responseTo}} = req;
+    Comment.findOneAndDelete({videoId,writer,responseTo})
+        .exec((err,deletedItem)=>{
+            if (err) return res.json({err,success:false});
+            Comment.find({videoId})
+                .populate('writer')
+                .exec((err,remainComments)=>{
+                    if (err) return res.json({err,success : false});
+                    console.log('show All Remain',remainComments);
+                    res.json({success:true,remainComments});
+                })
+        })
+})
+
 
 module.exports = commentRouter;
