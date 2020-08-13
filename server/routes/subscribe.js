@@ -45,7 +45,6 @@ subscribeRouter.post('/removeFromSubscribe',(req,res)=>{
 })
 
 subscribeRouter.post('/getSubscribeVideo',(req,res)=>{
-    console.log(req.body)
     Subscribe.find(req.body)
         .exec((err,subscribeInfo)=>{
             if (err) return res.json({success:false,err});
@@ -53,7 +52,6 @@ subscribeRouter.post('/getSubscribeVideo',(req,res)=>{
             Video.find({writer : {$in : videoWriterArray}})
                 .populate('writer')
                 .exec((err,subscribedVideo)=>{
-                    console.log('subed Video:',subscribedVideo);
                     if (err) return res.json({err,success:false});
                     res.json({success:true,subscribedVideo});
                 })
