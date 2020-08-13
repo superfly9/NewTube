@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/.github.io/newtube/static/css/main.5d39222c.chunk.css",
+    "main.js": "/.github.io/newtube/static/js/main.585981fa.chunk.js",
+    "main.js.map": "/.github.io/newtube/static/js/main.585981fa.chunk.js.map",
+    "runtime-main.js": "/.github.io/newtube/static/js/runtime-main.de5792fd.js",
+    "runtime-main.js.map": "/.github.io/newtube/static/js/runtime-main.de5792fd.js.map",
+    "static/css/2.051905ae.chunk.css": "/.github.io/newtube/static/css/2.051905ae.chunk.css",
+    "static/js/2.463623f9.chunk.js": "/.github.io/newtube/static/js/2.463623f9.chunk.js",
+    "static/js/2.463623f9.chunk.js.map": "/.github.io/newtube/static/js/2.463623f9.chunk.js.map",
+    "index.html": "/.github.io/newtube/index.html",
+    "precache-manifest.b55c3edfb73a44215a2d029d343f2925.js": "/.github.io/newtube/precache-manifest.b55c3edfb73a44215a2d029d343f2925.js",
+    "service-worker.js": "/.github.io/newtube/service-worker.js",
+    "static/css/2.051905ae.chunk.css.map": "/.github.io/newtube/static/css/2.051905ae.chunk.css.map",
+    "static/css/main.5d39222c.chunk.css.map": "/.github.io/newtube/static/css/main.5d39222c.chunk.css.map",
+    "static/js/2.463623f9.chunk.js.LICENSE.txt": "/.github.io/newtube/static/js/2.463623f9.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.de5792fd.js",
+    "static/css/2.051905ae.chunk.css",
+    "static/js/2.463623f9.chunk.js",
+    "static/css/main.5d39222c.chunk.css",
+    "static/js/main.585981fa.chunk.js"
+  ]
+}
