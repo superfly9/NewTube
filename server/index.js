@@ -18,6 +18,7 @@ app.use(cookieParser());
 app.use(cors(corsOption))
 
 const mongoose = require("mongoose");
+console.log('for heroku Check:',config.mongoURI);
 const connect = mongoose.connect(config.mongoURI,
   {
     useNewUrlParser: true, useUnifiedTopology: true,
