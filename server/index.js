@@ -12,14 +12,15 @@ const corsOption = {
   credentials: true
 }
 
+app.set('port',process.env.PORT || 3000);
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors(corsOption))
 
 const mongoose = require("mongoose");
-console.log('for heroku Check:',config.mongoURI);
-const connect = mongoose.connect(config.mongoURI,
+const connect = mongoose.connect(config.mongoURI || 
+  'mongodb://seoul-tube:password123@ds149874.mlab.com:49874/heroku_j14kprhd',
   {
     useNewUrlParser: true, useUnifiedTopology: true,
     useCreateIndex: true, useFindAndModify: false

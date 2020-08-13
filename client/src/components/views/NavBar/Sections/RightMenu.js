@@ -8,7 +8,7 @@ import { useSelector } from "react-redux";
 
 function RightMenu(props) {
   const user = useSelector(state => state.user)
-  
+  console.log('user for check Redux:',user)
   const logoutHandler = () => {
     Axios.post(`${USER_SERVER}/logout`,{},{withCredentials:true}).then(response => {
       if (response.status === 200) {

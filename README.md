@@ -1,5 +1,6 @@
 ## NewTube
 
+#### 사이트주소:https://seoul-tube.herokuapp.com/
 ### 목적
 - #### 동영상 업로드 및 댓글 작성 가능한 사이트 만들기
 
