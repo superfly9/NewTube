@@ -23,7 +23,7 @@ function Comment(props) {
             writer : userData._id,
             content : CommentValue
         }
-        Axios.post(`${CORS_URL}/comment/saveComment`,submitVariables)
+        Axios.post(`/comment/saveComment`,submitVariables)
             .then(response=>{
                 if (response.data.success) {
                     const {data : {commentInfo}} = response

@@ -4,10 +4,9 @@ import {
     REGISTER_USER,
     AUTH_USER,
 } from './types';
-import { USER_SERVER } from '../components/Config.js';
 
 export function registerUser(dataToSubmit){
-    const request = Axios.post(`${USER_SERVER}/register`,dataToSubmit)
+    const request = Axios.post(`/users/register`,dataToSubmit)
         .then(response => response.data);
     
     return {
@@ -17,8 +16,9 @@ export function registerUser(dataToSubmit){
 }
 
 export async function loginUser(dataToSubmit){
-    const request =await Axios.post(`${USER_SERVER}/login`,dataToSubmit,{withCredentials:true})
+    const request =await Axios.post(`/users/login`,dataToSubmit)
                 .then(response => response.data);
+                console.log('at Client Login Action:',request)
     return {
         type: LOGIN_USER,
         payload: request
@@ -26,8 +26,8 @@ export async function loginUser(dataToSubmit){
 }
 
 export async function auth(){
-    const request =await Axios.post(`${USER_SERVER}/auth`,{},{withCredentials:true})
-    .then(response => response.data);
+    const request =await Axios.get(`/users/auth`)
+        .then(response => response.data);
 
     return {
         type: AUTH_USER,

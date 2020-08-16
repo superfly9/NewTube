@@ -3,7 +3,6 @@ import {useDropzone} from 'react-dropzone';
 import './DropZone.css';
 import { PlusOutlined } from '@ant-design/icons';
 import Axios from 'axios';
-import { CORS_URL } from '../../Config';
 
 
 
@@ -19,13 +18,13 @@ const Dropzone=(props)=>{
         header : {'content-type': 'multipart/form-data'}
       }
       // 파일 업로드시 썸네일 노드 서버에 파일 저장 및 파일의 경로/썸네일 경로/길이를 받아옴
-      Axios.post(`${CORS_URL}/video/uploadFile`,formData,config)
+      Axios.post(`/video/uploadFile`,formData,config)
         .then(response=>{
           if (response.data.success) {
             const {data:{filePath,fileName}} = response
             const body = {filePath, fileName}
             setVideoFilePath(filePath);
-            Axios.post(`${CORS_URL}/video/thumbnail`,body)
+            Axios.post(`/video/thumbnail`,body)
               .then(response=>{
                 if (response.data.success) {
                   const { data : {thumbnailPath,fileDuration}} =response
@@ -46,7 +45,7 @@ const Dropzone=(props)=>{
               <PlusOutlined  style={{fontSize:'3rem'}}/>
         </div>
         <div className='dropzone_thumbnail'>
-          {ThumbnailPath &&<img src={`${CORS_URL}/${ThumbnailPath}`} alt='image' />}
+          {ThumbnailPath &&<img src={`/${ThumbnailPath}`} alt='image' />}
         </div>
       </Fragment>
     )

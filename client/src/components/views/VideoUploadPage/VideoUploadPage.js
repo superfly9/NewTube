@@ -44,7 +44,7 @@ function VideoUploadPage(props) {
             thumbnail :ThumbnailPath,
             duration: Duration
         }
-        Axios.post(`${CORS_URL}/video/uploadVideo`,body)
+        Axios.post(`/video/uploadVideo`,body)
             .then(response=>{
                 if (response.data.success) {
                     alert('Success! 1초 뒤 홈으로 이동합니다.')

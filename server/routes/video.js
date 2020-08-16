@@ -38,7 +38,6 @@ videoRouter.post("/thumbnail", (req, res) => {
             thumbnailPath = "uploads/thumbnails/" + filenames[0];
         })
         .on('end', function () {
-            console.log('Screenshots taken');
             return res.json({ success: true, thumbnailPath, fileDuration})
         })
         .screenshots({
@@ -85,7 +84,6 @@ videoRouter.post('/deleteVideo',(req,res)=>{
         _id : videoId
     }).exec((err,result)=>{
             if (err) return res.json({err,success:false});
-            console.log('delted Video:',result);
             res.json({success:true});
         })
 })

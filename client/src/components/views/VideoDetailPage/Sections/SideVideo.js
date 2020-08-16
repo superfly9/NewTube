@@ -1,13 +1,12 @@
 import React,{useEffect,useState, Fragment} from 'react'
 import Axios from 'axios'
 import './SideVideo.css';
-import { CORS_URL } from '../../../Config';
 
 
 function SideVideo(props) {
     const [sideVideos,setSideVideos]=useState([]);
     useEffect(() => {
-        Axios.get(`${CORS_URL}/video/getVideos`)
+        Axios.get(`/video/getVideos`)
             .then(response=>{
                 if (response.data.success) {
                     setSideVideos([...response.data.videos])
@@ -23,7 +22,7 @@ function SideVideo(props) {
         <div className='sideVideo_container' key={index}>
             <div className='sideVideo_thumbnail'>
                 <a href={`/video/${sideVideoInfo._id}`}>
-                    <img src={`${CORS_URL}/${sideVideoInfo.thumbnail}`} />
+                    <img src={`/${sideVideoInfo.thumbnail}`} />
                 </a>
             </div>
             <div className='sideVideo_info'>

@@ -2,7 +2,6 @@ import React,{useEffect,useState} from 'react'
 import Axios from 'axios';
 import {Row,Col} from 'antd';
 import moment from 'moment';
-import { CORS_URL } from '../../Config';
 
 function SubscribePage() {
     const [SubscribeVideo,setSubscribeVideo] = useState([]);
@@ -10,7 +9,7 @@ function SubscribePage() {
         const body = {
             userFrom : localStorage.getItem('userId')
         }
-        Axios.post(`${CORS_URL}/subscribe/getSubscribeVideo`,body)
+        Axios.post(`/subscribe/getSubscribeVideo`,body)
             .then(response=>{
                 if (response.data.success) {
                     const {data : {subscribedVideo}} = response;
@@ -26,7 +25,7 @@ function SubscribePage() {
      return (<Col lg={6} md={8} xs={24} key={index}>
                 <div className='landing_video_thumbnail'>
                     <a href={`/video/${videoInfo._id}`}>
-                        <img src={`${CORS_URL}/${videoInfo.thumbnail}`}/>
+                        <img src={`/${videoInfo.thumbnail}`}/>
                         <span className='landing_video_duration'>{`${minutes}:${second}`}</span>
                     </a>
                 </div>

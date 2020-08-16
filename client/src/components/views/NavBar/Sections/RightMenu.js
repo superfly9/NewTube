@@ -8,9 +8,8 @@ import { useSelector } from "react-redux";
 
 function RightMenu(props) {
   const user = useSelector(state => state.user)
-  console.log('user for check Redux:',user)
   const logoutHandler = () => {
-    Axios.post(`${USER_SERVER}/logout`,{},{withCredentials:true}).then(response => {
+    Axios.post(`/users/logout`,{},{withCredentials:true}).then(response => {
       if (response.status === 200) {
         props.history.push('/login');
       } else {
@@ -23,10 +22,10 @@ function RightMenu(props) {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="mail">
-          <a href="/login">Signin</a>
+          <a href="/login">로그인</a>
         </Menu.Item>
         <Menu.Item key="app">
-          <a href="/register">Signup</a>
+          <a href="/register">회원가입</a>
         </Menu.Item>
       </Menu>
     )
@@ -34,10 +33,10 @@ function RightMenu(props) {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="create">
-          <a href="/video/upload">Upload</a>
+          <a href="/video/upload">업로드</a>
         </Menu.Item>
         <Menu.Item key="logout">
-          <a onClick={logoutHandler}>Logout</a>
+          <a onClick={logoutHandler}>로그아웃</a>
         </Menu.Item>
       </Menu>
     )

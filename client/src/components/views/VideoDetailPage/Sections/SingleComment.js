@@ -3,7 +3,6 @@ import Axios from 'axios';
 import { useSelector } from 'react-redux';
 import './Comment.css';
 import LikeDisLike from './LikeDisLike';
-import { CORS_URL } from '../../../Config';
 
 function SingleComment(props) {
     const {comment,videoId,updateComment}=props;
@@ -24,7 +23,7 @@ function SingleComment(props) {
             content : CommentValue,
             responseTo : comment._id
         }
-        Axios.post(`${CORS_URL}/comment/saveComment`,submitVariable)
+        Axios.post(`/comment/saveComment`,submitVariable)
             .then(response=>{
                 if (response.data.success) {
                     const { data : {commentInfo}} = response;
@@ -71,7 +70,7 @@ function SingleComment(props) {
         const responseTo = comment.responseTo;
         const writer = localStorage.getItem('userId');
 
-        Axios.post(`${CORS_URL}/comment/deleteComment`,{writer,responseTo,videoId})
+        Axios.post(`/comment/deleteComment`,{writer,responseTo,videoId})
             .then(response=>{
                 if (response.data.success) {
                     let {data:{remainComments}}=response

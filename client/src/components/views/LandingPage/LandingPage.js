@@ -3,12 +3,11 @@ import './LandingPage.css';
 import Axios from 'axios'
 import {Row,Col} from 'antd';
 import moment from 'moment';
-import { CORS_URL } from '../../Config';
 
 function LandingPage() {
     const [Videos,setVideos] = useState([]);
     useEffect(() => {
-        Axios.get(`${CORS_URL}/video/getVideos`)
+        Axios.get('/video/getVideos')
             .then(response=>{
                 if (response.data.success) {
                     const { data : {videos}} =response;
@@ -22,7 +21,7 @@ function LandingPage() {
      return (<Col lg={6} md={8} xs={24} key={index}>
                 <div className='landing_video_thumbnail'>
                     <a href={`/video/${videoInfo._id}`}>
-                        <img src={`${CORS_URL}/${videoInfo.thumbnail}`}/>
+                        <img src={`/${videoInfo.thumbnail}`}/>
                         <span className='landing_video_duration'>{`${minutes}:${second}`}</span>
                     </a>
                 </div>

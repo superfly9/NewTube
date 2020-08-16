@@ -1,10 +1,9 @@
 const express = require('express');
 const userRouter = express.Router();
 const { User } = require("../models/User");
-
 const { auth } = require("../middleware/auth");
 
-userRouter.post("/auth", auth, (req, res) => {
+userRouter.get("/auth", auth, (req, res) => {
     res.status(200).json({
         _id: req.user._id,
         isAdmin: req.user.role === 0 ? false : true,
@@ -42,8 +41,8 @@ userRouter.post("/login", (req, res) => {
 
             user.generateToken((err, user) => {
                 if (err) return res.status(400).send(err);
-                res.cookie("w_authExp", user.tokenExp,{sameSite:'none',secure:true});
-                res.cookie("w_auth", user.token,{sameSite:'none',secure:true})
+                res.cookie("w_authExp", user.tokenExp);
+                res.cookie("w_auth", user.token)
                     .status(200)
                     .json({
                         loginSuccess: true, userId: user._id

@@ -1,26 +1,20 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const cors = require('cors')
+const cors = require('cors');
+
 
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 
-const corsOption = {
-  origin : ['http://localhost:3000','https://seoul-tube.herokuapp.com'], 
-  credentials: true
-}
-
-app.set('port',process.env.PORT || 3000);
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors({credentials:true,origin:true}));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(cors(corsOption))
 
 const mongoose = require("mongoose");
-const connect = mongoose.connect(config.mongoURI || 
-  'mongodb://seoul-tube:password123@ds149874.mlab.com:49874/heroku_j14kprhd',
+const connect = mongoose.connect(config.mongoURI,
   {
     useNewUrlParser: true, useUnifiedTopology: true,
     useCreateIndex: true, useFindAndModify: false
