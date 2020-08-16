@@ -17,7 +17,7 @@ function SideVideo(props) {
     }, [])
     const decideThumbnail=(videoInfo)=>{
         if (process.env.NODE_ENV==='production') {
-            return `https://seoul-tube.herokuapp.com/${videoInfo.thumbnail}`
+            return `http://localhost:5000/${videoInfo.thumbnail}`
         } else {
             return `/${videoInfo.thumbnail}`
         }
