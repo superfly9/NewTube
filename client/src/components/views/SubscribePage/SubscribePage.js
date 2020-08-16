@@ -19,13 +19,20 @@ function SubscribePage() {
                 }
             })
     }, [])
+    const decideThumbnail=(videoInfo)=>{
+        if (process.env.NODE_ENV==='production') {
+            return `https://seoul-tube.herokuapp.com/${videoInfo.thumbnail}`
+        } else {
+            return `/${videoInfo.thumbnail}`
+        }
+    }
     const renderVideo = SubscribeVideo && SubscribeVideo.map((videoInfo,index)=>{
         const minutes = Math.floor(videoInfo.duration/60);
         const second  = Math.floor(videoInfo.duration - (minutes*60));
      return (<Col lg={6} md={8} xs={24} key={index}>
                 <div className='landing_video_thumbnail'>
                     <a href={`/video/${videoInfo._id}`}>
-                        <img src={`/${videoInfo.thumbnail}`}/>
+                        <img src={decideThumbnail(videoInfo)}/>
                         <span className='landing_video_duration'>{`${minutes}:${second}`}</span>
                     </a>
                 </div>

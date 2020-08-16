@@ -15,6 +15,13 @@ function SideVideo(props) {
                 }
             })
     }, [])
+    const decideThumbnail=(videoInfo)=>{
+        if (process.env.NODE_ENV==='production') {
+            return `https://seoul-tube.herokuapp.com/${videoInfo.thumbnail}`
+        } else {
+            return `/${videoInfo.thumbnail}`
+        }
+    }
     const renderSideVideos = sideVideos && sideVideos.map((sideVideoInfo,index)=>{
         const minutes = Math.floor(sideVideoInfo.duration/60);
         const seconds = Math.floor(sideVideoInfo.duration-(minutes*60));
@@ -22,7 +29,7 @@ function SideVideo(props) {
         <div className='sideVideo_container' key={index}>
             <div className='sideVideo_thumbnail'>
                 <a href={`/video/${sideVideoInfo._id}`}>
-                    <img src={`/${sideVideoInfo.thumbnail}`} />
+                    <img src={decideThumbnail(sideVideoInfo)} />
                 </a>
             </div>
             <div className='sideVideo_info'>
