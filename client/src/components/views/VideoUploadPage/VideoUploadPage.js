@@ -92,15 +92,15 @@ function VideoUploadPage(props) {
                     </div>
 
                     <label htmlFor='title'>Title:</label>
-                    <input name='title' id='title' onChange={handleOnChange} value={Title} placeholder='Write Title' />
+                    <input name='title' className='dropzone_input' id='title' onChange={handleOnChange} value={Title} placeholder='Write Title' />
 
                     <label htmlFor='description'>Description:</label>
-                    <textarea name='description' id='description' onChange={handleOnChange} value={Description} placeholder='Write Description' />
+                    <textarea className='dropzone_textarea' name='description' id='description' onChange={handleOnChange} value={Description} placeholder='Write Description' />
 
-                    <select value={Category} onChange={categoryChange}>
+                    <select className='dropzone_select' value={Category} onChange={categoryChange}>
                         {renderOption}
                     </select>
-                    <button>Upload Video</button>
+                    <button className='dropzone_btn'>Upload Video</button>
                 </form>
             </div>
         </div>
