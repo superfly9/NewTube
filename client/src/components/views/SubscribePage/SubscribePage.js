@@ -21,7 +21,7 @@ function SubscribePage() {
     }, [])
     const decideThumbnail=(videoInfo)=>{
         if (process.env.NODE_ENV==='production') {
-            return `http://localhost:5000/${videoInfo.thumbnail}`
+            return `https://seoul-tube.herokuapp.com/${videoInfo.thumbnail}`
         } else {
             return `/${videoInfo.thumbnail}`
         }
