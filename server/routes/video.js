@@ -23,8 +23,6 @@ const upload = multer({
 })
 
 videoRouter.post('/uploadFile',upload.single('videoFile'),(req,res)=>{
-    console.log('file:',req.file)
-    //reg.file.key => filename.ext
     const {file:{location:filePath} }=req;
     let fileDuration;
     ffmpeg.ffprobe(filePath, function(err, metadata){
@@ -32,13 +30,13 @@ videoRouter.post('/uploadFile',upload.single('videoFile'),(req,res)=>{
     })
     ffmpeg(filePath)
         .on('end', function () {
-            console.log('fileDuration:',fileDuration,'filePath:',filePath)
             return res.json({ success: true, fileDuration,filePath,fileInfo:req.file})
         })
         .screenshots({
             count: 1,
             size:'320x240',
-            filename:'thumbnail-%b.png'
+            filename:'thumbnail-%b.png',
+            folder: 'uploads/thumbnails',
         });                          
 })
 
