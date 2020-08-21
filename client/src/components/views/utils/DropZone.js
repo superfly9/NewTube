@@ -21,8 +21,8 @@ const Dropzone=(props)=>{
       Axios.post(`/video/uploadFile`,formData,config)
         .then(response=>{
           if (response.data.success) {
-            const {data:{filePath,fileName}} = response
-            const body = {filePath, fileName}
+            const {data:{ filePath } } = response
+            const body = {filePath}
             setVideoFilePath(filePath);
             Axios.post(`/video/thumbnail`,body)
               .then(response=>{

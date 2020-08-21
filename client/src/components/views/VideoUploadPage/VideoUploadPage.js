@@ -3,7 +3,6 @@ import {useSelector} from 'react-redux';
 import Dropzone from '../utils/DropZone';
 import Axios from 'axios';
 import './VideoUploadPage.css';
-import { CORS_URL } from '../../Config';
 
 function VideoUploadPage(props) {
     const user = useSelector(state => state.user);

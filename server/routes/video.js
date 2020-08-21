@@ -1,24 +1,32 @@
 const express = require('express');
 const videoRouter = express.Router();
 const multer = require('multer');
+const multerS3 = require('multer-s3');
+const AWS= require('aws-sdk');
 const ffmpeg = require('fluent-ffmpeg');
+const path = require('path');
 const {Video} = require('../models/Video');
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads/')
-    },
-    filename: function (req, file, cb) {
-      cb(null, `${Date.now()}_${file.originalname}`)
-    }
-  })
 
-const upload = multer({storage})
+const s3=new AWS.S3();
+const upload = multer({
+    storage : multerS3({
+        s3,
+        bucket:'seoul-tube/video',
+        acl:'public-read',
+        key : function (req,file,cb) {
+            console.log('AWS:',file)
+            let extension = path.extname(file.originalname);
+            cb(null,`${Date.now().toString()}${extension}`)
+        }
+    })
+})
 
 videoRouter.post('/uploadFile',upload.single('videoFile'),(req,res)=>{
-    const {file:{originalname:fileName,path:filePath} }=req
-    if (fileName && filePath) {
-        res.json({success:true,filePath,fileName})
+    console.log('req.file:',req.file)
+    const {file:{location} }=req
+    if (filePath) {
+        res.json({success:true,filePath:location})
     }
 })
 

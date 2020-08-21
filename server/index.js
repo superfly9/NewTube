@@ -2,12 +2,22 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const cors = require('cors');
-
-
+const AWS = require('aws-sdk');
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
-const config = require("./config/key");
+const dotenv = require('dotenv');
+const config = require('./config/key');
 
+dotenv.config();
+
+console.log('access Key:',process.env.ACCESS_KEY,
+'secretAccessKey:',process.env.SECRET_ACCESS_KEY
+)
+AWS.config.update({
+  accessKeyId:process.env.ACCESS_KEY,
+  secretAccessKey:process.env.SECRET_ACCESS_KEY,
+  region:'ap-northeast-2'
+})
 app.use(cors({credentials:true,origin:true}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
