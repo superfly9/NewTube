@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react'
 import Axios from 'axios';
 import {Row,Col} from 'antd';
 import moment from 'moment';
+import './SubscribePage.css';
 
 function SubscribePage() {
     const [SubscribeVideo,setSubscribeVideo] = useState([]);
@@ -19,28 +20,22 @@ function SubscribePage() {
                 }
             })
     }, [])
-    const decideThumbnail=(videoInfo)=>{
-        if (process.env.NODE_ENV==='production') {
-            return `https://seoul-tube.herokuapp.com/${videoInfo.thumbnail}`
-        } else {
-            return `/${videoInfo.thumbnail}`
-        }
-    }
     const renderVideo = SubscribeVideo && SubscribeVideo.map((videoInfo,index)=>{
         const minutes = Math.floor(videoInfo.duration/60);
         const second  = Math.floor(videoInfo.duration - (minutes*60));
      return (<Col lg={6} md={8} xs={24} key={index}>
-                <div className='landing_video_thumbnail'>
+            <div className='video_container'>
+                <div className='subscription_video_container'>
                     <a href={`/video/${videoInfo._id}`}>
-                        <img src={decideThumbnail(videoInfo)}/>
-                        <span className='landing_video_duration'>{`${minutes}:${second}`}</span>
+                        <video src={videoInfo.filePath} />
+                        <span className='subscription_video_duration'>{`${minutes}:${second}`}</span>
                     </a>
                 </div>
-                <div className='landing_video_info_container'>
-                    <div className='landing_video_writer_thumbnail'>
+                <div className='subscription_info_container'>
+                    <div className='subscription_video_writer_thumbnail'>
                         <img src={`${videoInfo.writer.image}`}/>
                     </div>
-                    <div className='landing_video_info'>
+                    <div className='subscription_video_info'>
                         <span>{videoInfo.title}</span>
                         <span>{videoInfo.description}</span>
                         <div>
@@ -49,11 +44,13 @@ function SubscribePage() {
                         </div>
                     </div>
                 </div>
+
+            </div>
             </Col>)
     })
     return (
-        <div className='landingPage_container'>
-            <h2 className='landingPage_title'>Subscribe Videos</h2>
+        <div className='subscriptionPage_container'>
+            <h2 className='subscriptionPage_title'>구독 리스트</h2>
             <Row gutter={[16,16]}>
                 {renderVideo}
             </Row>

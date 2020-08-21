@@ -58,8 +58,8 @@ function VideoDetailPage(props) {
         if (VideoInfo.writer) {
             return (
                 <Fragment>
-                    <div className='video_container'>
-                        <video src={`/${VideoInfo.filePath}`} controls />
+                    <div className='video_detail_container'>
+                        <video src={`${VideoInfo.filePath}`} controls />
                     </div>
                     <div className='video_info_container'>
                         <span className='video_info_writer_thumbnail'><img src={VideoInfo.writer.image} /></span>

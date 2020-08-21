@@ -46,7 +46,6 @@ function LandingPage() {
     })
     return (
         <div className='landingPage_container'>
-            <h2 className='landingPage_title'>Videos</h2>
             <Row gutter={[16,16]}>
                 {renderVideo}
             </Row>

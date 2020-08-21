@@ -2,12 +2,9 @@
     width:85%;
     margin: 3rem auto;
 }
-.landingPage_title {
-    margin: 2rem 0;
-    text-align: center;
-}
 .video_container video {
     height: 28vh;
+    width: 100%;
 }
 .landing_video_container {
     position: relative;

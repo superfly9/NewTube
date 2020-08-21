@@ -1,0 +1,42 @@
+.subscriptionPage_container {
+    width:85%;
+    margin: 3rem auto;
+}
+.subscriptionPage_title {
+    margin: 2rem 0;
+    text-align: center;
+}
+.subscription_video_container video {
+    height: 28vh;
+    width: 100%;
+}
+.subscription_video_container {
+    position: relative;
+}
+.subscription_video_container video {
+    object-fit: fill;
+}
+.subscription_video_duration {
+    font-size: 12px;
+    line-height: 20px;
+    opacity: .8;
+    padding: 0 .8rem;
+    letter-spacing: 1px;
+    background-color: rgba(17, 17, 17, .8);
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+    color: aliceblue;
+}
+
+.subscription_info_container {
+    margin: .5rem 0;
+    display: flex;  
+}
+.subscription_video_writer_thumbnail img {
+    width: 70%;
+}
+.subscription_video_info {
+    display: flex;
+    flex-direction: column;
+}
