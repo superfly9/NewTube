@@ -1,6 +1,5 @@
 .dropzone {
     height: 240px;
-    border-right: 1px solid black;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,4 +7,12 @@
 .dropzone_thumbnail img {
     width: 100%;
     height: 100%;
+}
+.dropzone_container {
+    border: 1px solid black;
+}
+.upload_message {
+    margin:0;
+    font-size:1rem;
+    font-weight: 500;
 }

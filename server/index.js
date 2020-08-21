@@ -10,9 +10,6 @@ const config = require('./config/key');
 
 dotenv.config();
 
-console.log('access Key:',process.env.ACCESS_KEY,
-'secretAccessKey:',process.env.SECRET_ACCESS_KEY
-)
 AWS.config.update({
   accessKeyId:process.env.ACCESS_KEY,
   secretAccessKey:process.env.SECRET_ACCESS_KEY,

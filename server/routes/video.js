@@ -15,7 +15,7 @@ const upload = multer({
         bucket:'seoul-tube/video',
         acl:'public-read',
         key : function (req,file,cb) {
-            console.log('AWS:',file)
+            // filedName('videoFile'), originalName
             let extension = path.extname(file.originalname);
             cb(null,`${Date.now().toString()}${extension}`)
         }
@@ -23,40 +23,24 @@ const upload = multer({
 })
 
 videoRouter.post('/uploadFile',upload.single('videoFile'),(req,res)=>{
-    console.log('req.file:',req.file)
-    const {file:{location} }=req
-    if (filePath) {
-        res.json({success:true,filePath:location})
-    }
-})
-
-
-videoRouter.post("/thumbnail", (req, res) => {
-
-    let thumbnailPath ="";
-    let fileDuration ="";
-
-    const {body :{filePath}} = req;
+    console.log('file:',req.file)
+    //reg.file.key => filename.ext
+    const {file:{location:filePath} }=req;
+    let fileDuration;
     ffmpeg.ffprobe(filePath, function(err, metadata){
         fileDuration = metadata.format.duration;
     })
-
     ffmpeg(filePath)
-        .on('filenames', function (filenames) {
-            thumbnailPath = "uploads/thumbnails/" + filenames[0];
-        })
         .on('end', function () {
-            return res.json({ success: true, thumbnailPath, fileDuration})
+            console.log('fileDuration:',fileDuration,'filePath:',filePath)
+            return res.json({ success: true, fileDuration,filePath,fileInfo:req.file})
         })
         .screenshots({
-            count: 3,
-            folder: 'uploads/thumbnails',
+            count: 1,
             size:'320x240',
             filename:'thumbnail-%b.png'
-        });
-
-});
-
+        });                          
+})
 
 videoRouter.post('/uploadvideo',(req,res)=>{
     const newVideo = new Video(req.body);

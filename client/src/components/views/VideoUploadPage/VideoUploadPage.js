@@ -12,7 +12,6 @@ function VideoUploadPage(props) {
     const [Category,setCategory] = useState(0);
     const [VideoFilePath,setVideoFilePath] = useState('');
     const [Duration,setDuration] = useState(0);
-    const [ThumbnailPath,setThumbnailPath] =useState('');
 
     const category = [
         {index:0, value:'Flim & Animation'},
@@ -31,7 +30,7 @@ function VideoUploadPage(props) {
 
         if (Title === "" || Description === "" ||
         Category === "" || VideoFilePath === "" ||
-        Duration === "" || ThumbnailPath === "") {
+        Duration === "") {
         return alert('모든 정보를 다 입력해주세요.')
     }
         const body ={
@@ -40,7 +39,6 @@ function VideoUploadPage(props) {
             description :Description,
             category :Category,
             filePath : VideoFilePath,
-            thumbnail :ThumbnailPath,
             duration: Duration
         }
         Axios.post(`/video/uploadVideo`,body)
@@ -73,9 +71,8 @@ function VideoUploadPage(props) {
         setCategory(e.target.value);
     }
     const updateState =(childComponentInfo)=>{
-     const {filePath,thumbnailPath,fileDuration} = childComponentInfo;
+     const {filePath,fileDuration} = childComponentInfo;
      setVideoFilePath(filePath);
-     setThumbnailPath(thumbnailPath);
      setDuration(fileDuration);
     }
     return (
